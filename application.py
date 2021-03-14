@@ -23,7 +23,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from operator import itemgetter
-from helpers import apology, login_required, lookup, usd, lookupLeader
+from helpers import apology, login_required, usd
 
 # Configure application
 app = Flask(__name__)
@@ -67,130 +67,22 @@ def index():
     """Show portfolio of stocks"""
     userId = session["user_id"]
     # Query  database for INFO
-    rows = db.execute("SELECT * FROM portfolio WHERE id = :user",
-                          user=userId)
-    cash = db.execute("SELECT cash FROM users WHERE id = :user",
-                          user=userId)[0]['cash']
+
     username = db.execute("SELECT username FROM users WHERE id = :user",
                           user=userId)[0]['username']
 
-    # pass  list of lists to the template page
-    total = cash
-    stocks = []
-
-    for index, row in enumerate(rows):
-        details = lookup(row['symbol'])
-
-        # create a list
-        currentStock = list((details['symbol'], details['name'], row['shares'], details['price'], round(details['price'] * row['shares'], 2)))
-        # add the list to the stocks list
-        stocks.append(currentStock)
-        total += stocks[index][4]
-
-    stocksConverted = stocks
-    for key, stock in enumerate(stocks):
-        # convert to formated string fro display
-        stocksConverted[key][3] = "${:,.2f}".format(stocks[key][3])
-        stocksConverted[key][4] = "${:,.2f}".format(stocks[key][4])
-
-    cashConverted = "${:,.2f}".format(cash)
-    totalConverted = "${:,.2f}".format(total)
-
-    return render_template("index.html", stocks=stocksConverted, cash=cashConverted, total=totalConverted, username=username)
+    return render_template("index.html", username=username)
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
-    """Buy shares of stock"""
-    if request.method == "GET":
-        return render_template("buy.html")
+    return redirect("/")
 
-    if request.method == "POST":
-        # store data from buy form
-        Userid = session["user_id"]
-
-        stringAmount = request.form.get("amount")
-
-        try:
-            if float(stringAmount) < 0:
-                # print(1)
-                return apology("Must buy at least one stock")
-        except:
-            # print(2)
-            return apology("Must buy at least one stock", 400)
-
-        symbol = request.form.get("symbol").upper()
-
-        try:
-            buyCount = float(stringAmount)
-        except:
-            # print(3)
-            return apology("Must buy at least one stock")
-
-        if not lookup(symbol):
-            # print(4)
-            return apology("Could not find the stock")
-
-        username = str(db.execute("SELECT username FROM users WHERE id = :id", id=Userid)[0]['username'])
-
-        # Calculate total value of the transaction
-        bookcost = lookup(symbol)['price']
-        company = lookup(symbol)['name']
-        totalCost = buyCount * bookcost
-
-        # Check if current CASH is enough
-        currentCash = db.execute("SELECT cash FROM users WHERE id = :user", user=Userid)[0]['cash']
-        # print(currentCash)
-        if currentCash < totalCost:
-            return apology("You don't have enough money")
-
-        # Check if user already owns this stocks
-        stocktobuy = db.execute("SELECT shares FROM portfolio WHERE id = :id AND symbol = :symbol", id=Userid, symbol=symbol)
-        # print(stocktobuy)
-
-        # Insert new row into the stock table
-        if not stocktobuy:
-            db.execute("INSERT INTO portfolio(id, username, symbol, stockname, shares) VALUES (:id, :username, :symbol, :stockname, :shares)",
-                        id=Userid, username=username, symbol=symbol, stockname=company, shares=buyCount)
-            # update caluated values
-            # bookcost = 0
-            # total = 0
-        #add to existing holdings
-        else:
-            newTotal = buyCount
-            newTotal += stocktobuy[0]['shares']
-            db.execute("UPDATE portfolio SET shares = :shares WHERE id = :id AND symbol = :symbol",
-                id=Userid, symbol=symbol, shares=newTotal)
-
-        # update user cash
-        remainingCash = round((currentCash - totalCost),2)
-        db.execute("UPDATE users SET cash = :cash WHERE id = :user", cash=remainingCash, user=Userid)
-
-        # Update history table
-        db.execute("INSERT INTO history(id, symbol, shares, value) VALUES (:id, :symbol, :shares, :value)",
-                id=Userid, symbol=symbol, shares=buyCount, value=totalCost)
-
-        return redirect("/")
-
-@app.route("/history")
+@app.route("/sell", methods=["GET", "POST"])
 @login_required
-def history():
-    Userid = session["user_id"]
-    """Show history of transactions"""
+def sell():
+    return redirect("/")
 
-    # query database with the transactions history
-    rows = db.execute("SELECT * FROM history WHERE id = :id", id=Userid)
-
-    # pass a list of lists to the template page
-    history = []
-    for row in rows:
-        tradeDetails = lookup(row['symbol'])
-        trade = list((tradeDetails['symbol'], tradeDetails['name'], row['shares'], "${:,.2f}".format(row['value']), row['date']))
-        history.append(trade)
-
-
-    # redirect user to index page
-    return render_template("history.html", history=history)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -238,19 +130,6 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
-@app.route("/quote", methods=["GET", "POST"])
-@login_required
-def quote():
-    """Get stock quote."""
-    if request.method == "GET":
-        return render_template("quote.html", stock="")
-
-    if request.method == "POST":
-        stock = lookup(request.form.get("stock"))
-        if not stock:
-            return apology("That stock does not exist")
-
-        return render_template("quote.html", stock=stock)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -284,64 +163,11 @@ def register():
 
         return redirect("/")
 
-@app.route("/sell", methods=["GET", "POST"])
-@login_required
-def sell():
-
-    userid = session["user_id"]
-    """Sell shares of stock"""
-    if request.method == "GET":
-        # query database with the transactions history
-        rows = db.execute("SELECT symbol, shares FROM portfolio WHERE id = :userid", userid=userid)
-
-        # create a dictionary with the availability of the stocks
-        stocksHeld = {}
-        for row in rows:
-            stocksHeld[row['symbol']] = row['shares']
-
-        return render_template("sell.html", stocksHeld=stocksHeld)
-
-    if request.method == "POST":
-        Userid = session["user_id"]
-        # collect relevant informations
-        try:
-            sellCount=int(request.form.get("sellCount"))
-        except:
-            return apology("you must sell at least 0ne stock")
-        symbol=request.form.get("symbol")
-        price=lookup(symbol)["price"]
-        value=round(price*sellCount)
-
-        # Update portfolio table
-        heldbefore = db.execute("SELECT shares FROM portfolio WHERE id = :user AND symbol = :symbol", symbol=symbol, user=Userid)[0]['shares']
-        heldafter = heldbefore - sellCount
-
-        # stop the transaction if the user does not have enough stocks
-        if heldafter < 0:
-            return apology("You hold that stock, but not that many!")
-
-        # delete stock from table if we sold out all stocks
-        if heldafter == 0:
-            db.execute("DELETE FROM portfolio WHERE id = :user AND symbol = :symbol", symbol=symbol, user=Userid)
-        # else update with new count
-        else:
-            db.execute("UPDATE portfolio SET shares = :shares WHERE id = :user AND symbol = :symbol",
-                          symbol=symbol, user=Userid, shares=heldafter)
-        #update user's cash
-        cash = db.execute("SELECT cash FROM users WHERE id = :user",
-                          user=Userid)[0]['cash']
-        cashRemaining = cash + (price * sellCount)
-        db.execute("UPDATE users SET cash = :cash WHERE id = :user",
-                          cash=cashRemaining, user=Userid)
-        # Update history table
-        db.execute("INSERT INTO history(id, symbol, shares, value) VALUES (:id, :symbol, :shares, :value)",
-                id=Userid, symbol=symbol, shares=-sellCount, value=value)
-
-        return redirect("/")
 
 
-@app.route("/leaderboard", methods=["GET", "POST"])
-def leaderboard():
+
+@app.route("/showusers", methods=["GET", "POST"])
+def showusers():
 
     if request.method == "GET":
         users = db.execute("SELECT username, id FROM users")
@@ -350,28 +176,8 @@ def leaderboard():
         for user in users:
             userdata = list((user['username'], user['id']))
             listUsers.append(userdata)
-        # query database for a list of all the users /list of dicts
 
-        # for user in listUsers:
-        #     holdingValue = 0
-        #     holdings = db.execute("SELECT shares, symbol FROM portfolio WHERE username = :username", username=user[0])
-        #     for stock in holdings:
-        #         stockPrice = lookupLeader(stock['symbol'])
-        #         value = stock['shares'] * stockPrice
-        #         holdingValue += value
-        #         user[1] = round(holdingValue, 2)
-
-        # for user in listUsers:
-        #     net = round(user[2] + user[1],0)
-        #     user[3] = "${:,.0f}".format(user[1])
-        #     user[4] = "${:,.0f}".format(user[2])
-        #     user[5] = "${:,.0f}".format(net)
-        #     user[6] = net
-
-        # sortedLeader = sorted(listUsers, key=itemgetter(6), reverse=True)
-        # # print(listUsers)
-
-    return render_template("leaderboard.html", listUsers=listUsers)
+    return render_template("showusers.html", listUsers=listUsers)
 
 def errorhandler(e):
     """Handle error"""
