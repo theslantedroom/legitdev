@@ -2,13 +2,6 @@
 # $Env:FLASK_APP="application.py"
 # $Env:FLASK_DEBUG=1
 
-# C:\sqlite\sqlite-tools-win32-x86-3340100\sqlite3.exe finance.db
-
-# CREATE TABLE users (id INTEGER, username TEXT NOT NULL, hash TEXT NOT NULL, cash NUMERIC NOT NULL DEFAULT 100000.00, PRIMARY KEY(id));
-
-# CREATE TABLE 'portfolio' ('id' integer NOT NULL, 'username' text, 'symbol' text NOT NULL, 'stockname' text, 'shares' integer NOT NULL, 'bookcost' real, 'total' real, 'date' datetime NOT NULL DEFAULT CURRENT_TIMESTAMP);
-
-# CREATE TABLE 'history' ('id' integer NOT NULL, 'symbol' text NOT NULL, 'date' datetime NOT NULL DEFAULT CURRENT_TIMESTAMP, 'shares' integer NOT NULL, 'value' numeric NOT NULL );
 
 # for Postgress DB later
 # import psycopg2
@@ -49,30 +42,22 @@ def after_request(response):
 # Custom filter
 app.jinja_env.filters["usd"] = usd
 
-# for postgress
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Configure session to use filesystem (instead of signed cookies)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///finance.db"
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-app.secret_key = 'any random stringsssscccsfsdfs'
+app.secret_key = 'legitdev2fr34gjkf7Hfi9G'
 Session(app)
 
-# Configure CS50 Library to use SQLite database
-# db = SQL("sqlite:///finance.db")
+
 db = SQL(os.getenv("DATABASE_URL"))
 # for postgress of heroku deployment
 
-# db = SQL('DATABASE_URI')
-# db = SQLAlchemy(app)
+
 
 # Make sure API key is set
-if not os.environ.get("API_KEY"):
-    raise RuntimeError("API_KEY not set")
-# print(os.environ['API_KEY'])
+# if not os.environ.get("API_KEY"):
+#     raise RuntimeError("API_KEY not set")
+
 os.environ["DEBUSSY"] = "1"
 
 
@@ -359,34 +344,34 @@ def sell():
 def leaderboard():
 
     if request.method == "GET":
-        users = db.execute("SELECT username, cash FROM users")
-        # print('xxx',users)
+        users = db.execute("SELECT username, id FROM users")
+        # print('listusers ',users)
         listUsers = []
         for user in users:
-            userdata = list((user['username'], 0, user['cash'], 'stock','cash','networth',0))
+            userdata = list((user['username'], user['id']))
             listUsers.append(userdata)
         # query database for a list of all the users /list of dicts
 
-        for user in listUsers:
-            holdingValue = 0
-            holdings = db.execute("SELECT shares, symbol FROM portfolio WHERE username = :username", username=user[0])
-            for stock in holdings:
-                stockPrice = lookupLeader(stock['symbol'])
-                value = stock['shares'] * stockPrice
-                holdingValue += value
-                user[1] = round(holdingValue, 2)
+        # for user in listUsers:
+        #     holdingValue = 0
+        #     holdings = db.execute("SELECT shares, symbol FROM portfolio WHERE username = :username", username=user[0])
+        #     for stock in holdings:
+        #         stockPrice = lookupLeader(stock['symbol'])
+        #         value = stock['shares'] * stockPrice
+        #         holdingValue += value
+        #         user[1] = round(holdingValue, 2)
 
-        for user in listUsers:
-            net = round(user[2] + user[1],0)
-            user[3] = "${:,.0f}".format(user[1])
-            user[4] = "${:,.0f}".format(user[2])
-            user[5] = "${:,.0f}".format(net)
-            user[6] = net
+        # for user in listUsers:
+        #     net = round(user[2] + user[1],0)
+        #     user[3] = "${:,.0f}".format(user[1])
+        #     user[4] = "${:,.0f}".format(user[2])
+        #     user[5] = "${:,.0f}".format(net)
+        #     user[6] = net
 
-        sortedLeader = sorted(listUsers, key=itemgetter(6), reverse=True)
-        # print(listUsers)
+        # sortedLeader = sorted(listUsers, key=itemgetter(6), reverse=True)
+        # # print(listUsers)
 
-    return render_template("leaderboard.html", listUsers=sortedLeader)
+    return render_template("leaderboard.html", listUsers=listUsers)
 
 def errorhandler(e):
     """Handle error"""

@@ -1,1 +1,0 @@
-heroku pg:killall -a stockpicker-theslantedroom
