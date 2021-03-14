@@ -1,2 +1,2 @@
-# fractalForest
-Code fractals
+# StockPicker
+Virtual Stock Trading 

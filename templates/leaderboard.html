@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+leaderboard
+{% endblock %}
+
+{% block main %}
+<h2>Leader Board</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                
+                <th> Stock </th>
+                <th> Cash </th>
+                <th>NET WORTH</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in listUsers %}
+                <tr>
+                    <td>{{ user[0] }}</td>
+                      
+                    <td>{{ user[3] }}</td>
+                    <td>{{ user[4] }}</td>
+                    <td>{{ user[5] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+{% endblock %}
