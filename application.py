@@ -16,9 +16,10 @@ project_folder = os.path.expanduser('./')  # adjust as appropriate
 load_dotenv(os.path.join(project_folder, '.env'))
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, send_from_directory
 from flask_session import Session
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS, cross_origin
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -27,6 +28,8 @@ from helpers import apology, login_required, usd
 
 # Configure application
 app = Flask(__name__)
+# args to access the build folder of react app idle trillionaire
+# app = Flask(__name__ ,static_folder='client/build',static_url_path='') 
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -48,30 +51,37 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.secret_key = 'legitdev2fr34gjkf7Hfi9G'
 Session(app)
 
-
 db = SQL(os.getenv("DATABASE_URL"))
 # for postgress of heroku deployment
 
-
-
-# Make sure API key is set
-# if not os.environ.get("API_KEY"):
-#     raise RuntimeError("API_KEY not set")
-
 os.environ["DEBUSSY"] = "1"
-
 
 @app.route("/")
 @login_required
 def index():
-    """Show portfolio of stocks"""
-    userId = session["user_id"]
-    # Query  database for INFO
 
-    username = db.execute("SELECT username FROM users WHERE id = :user",
-                          user=userId)[0]['username']
 
-    return render_template("index.html", username=username)
+    if request.method == "GET":
+        userId = session["user_id"]
+        userdata = db.execute("SELECT * FROM users WHERE id = :user", user=userId)
+        print('userdata', userdata )
+        # listUsers = []
+        # for user in userdata:
+        #     userdata = list((user['id'] ,user['username'], user['slogan'], user['alignment'], user['race'] ))
+        #     listUsers.append(userdata)
+
+        # get list of items in inventory
+        inventory = db.execute("SELECT * FROM inventory WHERE id = :id", id=userId)
+        print('inventory ',inventory)
+        listInv = []
+        for i, row in enumerate(inventory):
+            invdata = inventory[i]['itemname']
+            listInv.append(invdata)
+
+        print(listInv, "listInv")
+
+    return render_template("index.html", userdata=userdata, listInv=listInv)
+
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -138,16 +148,25 @@ def register():
 
     if request.method == "POST":
         username = request.form.get('username')
+        slogan = request.form.get('slogan')
+        alignment = request.form.get('alignment')
+        race = request.form.get('race')
+        startItem = request.form.get('startItem')
         registerpassword1 = request.form.get('registerpassword1')
         registerpassword2 = request.form.get('registerpassword2')
         PWhash = generate_password_hash(registerpassword1)
         registeredUsers = db.execute("SELECT username FROM users")
 
-        print(registeredUsers)
-        if len(username) >= 14:
+        if len(username) > 14:
             return apology("username max 14 chars")
         if not username:
-            return apology("no username")
+            return apology("you need a name pal")
+        if not slogan:
+            return apology("enter a slogan bud")
+        if not alignment:
+            return apology("pick a alignment")
+        if not race:
+            return apology("pick a race")
         if not registerpassword1:
             return apology("did not enter password")
         if not registerpassword2:
@@ -157,9 +176,12 @@ def register():
 
         if db.execute("SELECT * FROM users WHERE username = :username",
             username=request.form.get("username")):
-            return apology("Username taken")
+            return apology("that username is taken")
+        db.execute("INSERT INTO users (username, hash, slogan, alignment, race) VALUES(?, ?, ?, ?, ?)", username, PWhash, slogan, alignment, race)
 
-        db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", username, PWhash)
+        userID = int(db.execute("SELECT id FROM users WHERE username = :userName", userName=username)[0]['id'])
+    
+        db.execute("INSERT INTO inventory (id, username, itemname) VALUES(?, ?, ?)", userID, username, startItem)
 
         return redirect("/")
 
@@ -168,13 +190,12 @@ def register():
 
 @app.route("/showusers", methods=["GET", "POST"])
 def showusers():
-
     if request.method == "GET":
-        users = db.execute("SELECT username, id FROM users")
+        users = db.execute("SELECT * FROM users")
         # print('listusers ',users)
         listUsers = []
         for user in users:
-            userdata = list((user['username'], user['id']))
+            userdata = list((user['id'] ,user['username'], user['slogan'], user['alignment'], user['race'] ))
             listUsers.append(userdata)
 
     return render_template("showusers.html", listUsers=listUsers)

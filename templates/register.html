@@ -7,13 +7,53 @@
 {% block main %}
     <h2>Register New Account</h2>
     <form action="/register" method="post">
+
+
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" maxlength="14">
         </div>
+
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="slogan" placeholder="slogan" type="charf" maxlength="50">
+        </div>
+
+        <h6>Please select your alignment:</h6>
+        <input type="radio" id="good" name="alignment" value="good" checked="checked">
+        <label for="good">Good</label> <br>
+        <input type="radio" id="evil" name="alignment" value="evil" >
+        <label for="evil">Evil</label><br>
+        <input type="radio" id="chaotic" name="alignment" value="Chaotic">
+        <label for="chaotic">Chaotic</label><br>
+ 
+        <h6>Please select your Race:</h6>
+
+        <input type="radio" id="Human" name="race" value="human" checked="checked">
+        <label for="Human">Human</label><br>
+
+        <input type="radio" id="Alien" name="race" value="alien">
+        <label for="Alien">Alien</label><br>  
+            
+        <input type="radio" id="Beast" name="race" value="beast">
+        <label for="Beast">Beast</label><br>
+
+        <h6>Start with:</h6>
+
+        <input type="radio" id="food" name="startItem" value="Knife" checked="checked">
+        <label for="knife">A Knife</label><br>
+
+        <input type="radio" id="preciousGems" name="startItem" value="Precious Gems">
+        <label for="preciousGems">Precious Gems</label><br>  
+            
+        <input type="radio" id="GoodLuckCharm" name="startItem" value="Good Luck Charm">
+        <label for="GoodLuckCharm">A Good Luck Charm</label><br>
+
+
         <div class="form-group">
             <input class="form-control" name="registerpassword1" placeholder="Password" type="password">
             <input class="form-control" name="registerpassword2" placeholder="Re-type Password" type="password">
         </div>
+
+
         <button class="btn btn-primary" type="submit">Log In</button>
     </form>
 {% endblock %}

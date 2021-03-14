@@ -5,24 +5,23 @@ leaderboard
 {% endblock %}
 
 {% block main %}
-<h2>Registered Users</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                
+<h2 class="textmedieval">Life Forms</h2>
+<div class="heroes">
+    
 
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in listUsers %}
-                <tr>
-                    <td>{{ user[0] }}</td>
-                      
+    {% for user in listUsers %}
+    <div class="profileCard">  
+        <!-- name -->
+        <h4 class="cardName textmedieval">{{ user[1] }}</h4>
+        <!-- slogan -->
+        <p class="cardslogan textmedieval">"{{ user[2] }}"</p>
+        <p class="cardleft textmedieval"> Race: {{ user[4] }}</p>
+        <p class="cardleft textmedieval">Alignment: {{ user[3] }}</p>
+        
+    </div>         
 
-                </tr>
-            {% endfor %}
-        </tbody>
 
-    </table>
+    {% endfor %}
+</div> 
+
 {% endblock %}

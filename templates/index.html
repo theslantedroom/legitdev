@@ -5,7 +5,41 @@
 {% endblock %}
 
 {% block main %}
-<h2 class="textmedieval">welcome back {{ username }}</h2>
+
+<h2 class="textmedieval">welcome back {{ userdata[0]["username"] }}</h2>
+
+
+<div class="profileLayout">
+
+
+    <div class="profileCard">  
+        <!-- name -->
+        <h4 class="cardName textmedieval">{{ userdata[0]["username"] }}</h4>
+        <!-- slogan -->
+        <p class="cardslogan textmedieval">"{{ userdata[0]["slogan"] }}"</p>
+        <p class="cardleft textmedieval"> Race: {{ userdata[0]["race"] }}</p>
+        <p class="cardleft textmedieval">Alignment: {{ userdata[0]["alignment"] }}</p>
+        
+    </div>   
+
+
+
+    
+
+    <div class="profileCard">  
+        <p>you have:</p>
+        {% for item in listInv %}
+            <p class="cardName textmedieval">{{ item }}</p>
+        {% endfor %}
+        
+
+
+    </div>         
+
+</div>
+
+
+
 
 {% endblock %}
 
