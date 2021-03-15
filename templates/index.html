@@ -24,14 +24,26 @@
 
 
 
+    <h1>Add</h1>
+    <p><input type=text size=5 name=newItem> +
+   <input type=text size=5 name=b> =
+   <span id=result>?</span>
+    <p><a href=# id=calculate>add item</a>
+
+   <!-- <p>A script on this page starts this clock:</p>
+   <p id="demo"></p>
+   
+   <button onclick="myStopFunction()">Stop time</button> -->
+
     
 
-    <div class="profileCard">  
+    <div class="">  
         <p>you have:</p>
+        <div id="inventoryCard">
         {% for item in listInv %}
             <p class="cardName textmedieval">{{ item }}</p>
         {% endfor %}
-        
+        </div>
 
 
     </div>         

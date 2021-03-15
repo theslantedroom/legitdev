@@ -37,23 +37,10 @@ main img
     flex-wrap: wrap;
     justify-content: center;
 }
-.cardName
-{
-    margin-bottom: 0;
-}
-.cardleft
-{
-    text-align: left;
-    margin: 0;
-}
-.cardslogan
-{
-margin: 2px;
-padding-bottom: 3px;
-padding-top: 0;
-}
+
 .profileCard
 {
+    background-image: url('./img/paper.png');
     box-sizing: border-box;
     word-wrap: break-word;
     border: 1px solid #000;
@@ -65,4 +52,32 @@ padding-top: 0;
     margin-top: 2px;
     margin-left: 2px;
     margin-right: 2px;
+    background-color: antiquewhite;
+}
+
+.cardName
+{
+    position: relative;
+    font-weight: bolder;
+    margin-top: 3px;
+    margin-bottom: 0;
+    background-image: url('./img/paper.png');
+    background-size: 275px 15px;
+    background-color: rgb(248, 228, 130);
+}
+
+.cardslogan
+{
+color: #1b1717;
+margin: 2px;
+padding: 0px 0px 10px 0px;
+padding-top: 0;
+}
+
+.cardleft
+{
+    color: #110c0c;
+    text-align: left;
+    padding-top: 0px;
+    margin: 0 0 0 0;
 }

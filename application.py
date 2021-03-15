@@ -16,7 +16,7 @@ project_folder = os.path.expanduser('./')  # adjust as appropriate
 load_dotenv(os.path.join(project_folder, '.env'))
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, send_from_directory
+from flask import Flask, flash, redirect, render_template, request, session, send_from_directory, jsonify
 from flask_session import Session
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_cors import CORS, cross_origin
@@ -56,23 +56,31 @@ db = SQL(os.getenv("DATABASE_URL"))
 
 os.environ["DEBUSSY"] = "1"
 
+# gets a json with data
+@login_required
+@app.route('/serverAI')
+def serverAI():
+    userID = session["user_id"]
+    username = db.execute("SELECT username FROM users WHERE id = :id", id=userID)[0]['username']
+    print(username)
+
+    newItem = request.args.get('newItem', 0, type=str)
+    b = request.args.get('b', 0, type=str)
+
+    result = newItem + ' ' + b
+
+    db.execute("INSERT INTO inventory (id, username, itemname) VALUES(?, ?, ?)", userID, username, result)
+    return jsonify(result=result)
+
 @app.route("/")
 @login_required
 def index():
-
-
     if request.method == "GET":
+        
         userId = session["user_id"]
         userdata = db.execute("SELECT * FROM users WHERE id = :user", user=userId)
-        print('userdata', userdata )
-        # listUsers = []
-        # for user in userdata:
-        #     userdata = list((user['id'] ,user['username'], user['slogan'], user['alignment'], user['race'] ))
-        #     listUsers.append(userdata)
-
-        # get list of items in inventory
         inventory = db.execute("SELECT * FROM inventory WHERE id = :id", id=userId)
-        print('inventory ',inventory)
+        # make list of inventory
         listInv = []
         for i, row in enumerate(inventory):
             invdata = inventory[i]['itemname']
@@ -181,7 +189,7 @@ def register():
 
         userID = int(db.execute("SELECT id FROM users WHERE username = :userName", userName=username)[0]['id'])
     
-        db.execute("INSERT INTO inventory (id, username, itemname) VALUES(?, ?, ?)", userID, username, startItem)
+        db.execute("INSERT INTO inventory (id, username, itemname, quantity) VALUES(?, ?, ?, ?)", userID, username, startItem, 1)
 
         return redirect("/")
 
