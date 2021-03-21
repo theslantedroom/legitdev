@@ -57,19 +57,42 @@ db = SQL(os.getenv("DATABASE_URL"))
 os.environ["DEBUSSY"] = "1"
 
 # gets a json with data
+# @login_required
+# @app.route('/serverAI')
+# def serverAI():
+#     userID = session["user_id"]
+#     username = db.execute("SELECT username FROM users WHERE id = :id", id=userID)[0]['username']
+#     print(username)
+
+#     newItem = request.args.get('newItem', 0, type=str)
+#     b = request.args.get('b', 0, type=str)
+
+#     result = newItem + ' ' + b
+#     # add item into DB inventory
+#     db.execute("INSERT INTO inventory (id, username, itemname) VALUES(?, ?, ?)", userID, username, result)
+#     return jsonify(result=result)
+
+# gets a json with data
 @login_required
-@app.route('/serverAI')
-def serverAI():
+@app.route('/commitCharge')
+def commitCharge():
     userID = session["user_id"]
-    username = db.execute("SELECT username FROM users WHERE id = :id", id=userID)[0]['username']
-    print(username)
+    userdata = db.execute("SELECT username, totalcharge FROM users WHERE id = :id", id=userID)[0]
+    print('xxxxxxxxx',userdata)
+    username = userdata['username']
+    currentcharge = int(userdata['totalcharge'])
+    newCharge = request.args.get('newCharge', 0, type=int)
+    totalcharge = currentcharge + newCharge
+    print('totalcharge', totalcharge)
 
-    newItem = request.args.get('newItem', 0, type=str)
-    b = request.args.get('b', 0, type=str)
 
-    result = newItem + ' ' + b
+    result = newCharge
 
-    db.execute("INSERT INTO inventory (id, username, itemname) VALUES(?, ?, ?)", userID, username, result)
+    db.execute("UPDATE users SET totalcharge = :totalcharge WHERE id = :id",id=userID, totalcharge=totalcharge,)
+
+
+
+    
     return jsonify(result=result)
 
 @app.route("/")
@@ -203,7 +226,7 @@ def showusers():
         # print('listusers ',users)
         listUsers = []
         for user in users:
-            userdata = list((user['id'] ,user['username'], user['slogan'], user['alignment'], user['race'] ))
+            userdata = list((user['id'] ,user['username'], user['slogan'], user['alignment'], user['race'], user['totalcharge'] ))
             listUsers.append(userdata)
 
     return render_template("showusers.html", listUsers=listUsers)

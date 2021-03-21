@@ -33,9 +33,15 @@ main img
 .profileLayout
 {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     justify-content: center;
+    flex-direction: column;
+}
+#commitCharge
+{
+    border: 1px solid #000;
+    height: 40px;
 }
 
 .profileCard

@@ -19,26 +19,34 @@
         <p class="cardslogan textmedieval">"{{ userdata[0]["slogan"] }}"</p>
         <p class="cardleft textmedieval"> Race: {{ userdata[0]["race"] }}</p>
         <p class="cardleft textmedieval">Alignment: {{ userdata[0]["alignment"] }}</p>
-        
+        <p class="cardleft">$<span id="cardChargeTotal" class="totalCharge">{{ userdata[0]["totalcharge"] }}</span></p>
     </div>   
 
 
 
-    <h1>Add</h1>
+    <!-- <h1>Add</h1>
     <p><input type=text size=5 name=newItem> +
-   <input type=text size=5 name=b> =
-   <span id=result>?</span>
-    <p><a href=# id=calculate>add item</a>
+    <input type=text size=5 name=b> =
+    <span id=result>?</span>
+    <p><a href=# id=calculate>add item</a> -->
 
-   <!-- <p>A script on this page starts this clock:</p>
-   <p id="demo"></p>
+
+
+    <p>Current Cash on the Table: </p><br>
+    <p>$<span id="chargeHtml">charge</span></p>
+     <!-- Commit Charge and Reset counter Button--> 
+    <a href=# class='btn btn-primary' id=commitCharge>Pocket the Cash</a>
+    <br><br>
+        
+
    
-   <button onclick="myStopFunction()">Stop time</button> -->
+   <!-- <button onclick="myStopFunction()">Stop Charge</button> -->
+
 
     
 
     <div class="">  
-        <p>you have:</p>
+        <h1>Inventory:</h1>
         <div id="inventoryCard">
         {% for item in listInv %}
             <p class="cardName textmedieval">{{ item }}</p>
