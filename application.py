@@ -74,8 +74,8 @@ os.environ["DEBUSSY"] = "1"
 
 # gets a json with data
 @login_required
-@app.route('/commitCharge')
-def commitCharge():
+@app.route('/pocketCash')
+def pocketCash():
     userID = session["user_id"]
     userdata = db.execute("SELECT username, totalcharge FROM users WHERE id = :id", id=userID)[0]
     print('xxxxxxxxx',userdata)

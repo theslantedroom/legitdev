@@ -5,6 +5,17 @@
 {% endblock %}
 
 {% block main %}
+<script>
+// start counter
+var chargeInterval = setInterval(indexTimer, 100);
+function indexTimer() {
+    chargeDisplay.innerText = charge;
+    charge += 1;
+}
+function myStopFunction() {
+    clearInterval(chargeInterval);
+}
+</script>
 
 <h2 class="textmedieval">welcome back {{ userdata[0]["username"] }}</h2>
 
@@ -35,7 +46,7 @@
     <p>Current Cash on the Table: </p><br>
     <p>$<span id="chargeHtml">charge</span></p>
      <!-- Commit Charge and Reset counter Button--> 
-    <a href=# class='btn btn-primary' id=commitCharge>Pocket the Cash</a>
+    <a href=# class='btn btn-primary' id='pocketCash'>Pocket the Cash</a>
     <br><br>
         
 

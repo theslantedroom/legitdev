@@ -18,9 +18,11 @@ $(function() {
     // });
 
     // commits charge to DB
-    $('a#commitCharge').bind('click', function() {
+    $('a#pocketCash').bind('click', function() {
+        document.getElementById('pocketCash').style.display = 'none';
+
         // sends a GET request to url and will send the contents of the data object as query parameters. Once the data arrived, it will call the given function with the return value as argument. Note that we can use the $SCRIPT_ROOT variable here that we set earlier. calls serverAI in app.py
-        $.getJSON($SCRIPT_ROOT + '/commitCharge', {
+        $.getJSON($SCRIPT_ROOT + '/pocketCash', {
             newCharge: charge
         }, function(data) {
             let currentCharge = parseInt(document.getElementById('cardChargeTotal').innerHTML);
@@ -29,6 +31,7 @@ $(function() {
             console.log('updatedCharge',updatedCharge);
             $( "#cardChargeTotal" ).text(updatedCharge);
             charge = 0;
+            document.getElementById('pocketCash').style.display = 'initial';
         });
         return false;
     });
@@ -38,14 +41,5 @@ $(function() {
 let chargeDisplay = document.getElementById("chargeHtml");
 
 
-// COUNTER
 
-var chargeInterval = setInterval(indexTimer, 100);
-function indexTimer() {
-    chargeDisplay.innerHTML = charge;
-    charge += 1;
-}
-  function myStopFunction() {
-    clearInterval(chargeInterval);
-  }
 
