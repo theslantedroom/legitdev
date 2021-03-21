@@ -20,6 +20,7 @@ $(function() {
     // commits charge to DB
     $('a#pocketCash').bind('click', function() {
         let chargeFrozen = charge;
+        charge = 0;
         document.getElementById('pocketCash').style.display = 'none';
         document.getElementById('chargeHtmlspan').style.display = 'none';
         document.getElementById('pocketCashLoading').style.display = 'block';
