@@ -43,6 +43,14 @@ main img
     border: 1px solid #000;
     height: 40px;
 }
+#pocketCashLoading
+{
+    display: none;
+    border: 1px solid #000;
+    height: 40px;
+    background-color: aquamarine;
+    color: black;
+}
 
 .profileCard
 {

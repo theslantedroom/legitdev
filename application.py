@@ -78,7 +78,6 @@ os.environ["DEBUSSY"] = "1"
 def pocketCash():
     userID = session["user_id"]
     userdata = db.execute("SELECT username, totalcharge FROM users WHERE id = :id", id=userID)[0]
-    print('xxxxxxxxx',userdata)
     username = userdata['username']
     currentcharge = int(userdata['totalcharge'])
     newCharge = request.args.get('newCharge', 0, type=int)
