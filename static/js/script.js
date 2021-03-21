@@ -20,7 +20,9 @@ $(function() {
     // commits charge to DB
     $('a#pocketCash').bind('click', function() {
         document.getElementById('pocketCash').style.display = 'none';
+        document.getElementById('chargeHtmlspan').style.display = 'none';
         document.getElementById('pocketCashLoading').style.display = 'block';
+
 
         // sends a GET request to url and will send the contents of the data object as query parameters. Once the data arrived, it will call the given function with the return value as argument. Note that we can use the $SCRIPT_ROOT variable here that we set earlier. calls serverAI in app.py
         $.getJSON($SCRIPT_ROOT + '/pocketCash', {
@@ -31,10 +33,12 @@ $(function() {
             let updatedCharge = charge + currentCharge;
             console.log('updatedCharge',updatedCharge);
             $( "#cardChargeTotal" ).text(updatedCharge);
-            charge = 0;
             setTimeout(function(){ 
-                document.getElementById('pocketCash').style.display = 'initial'; 
+                document.getElementById('pocketCash').style.display = 'block'; 
                 document.getElementById('pocketCashLoading').style.display = 'none';
+                charge = 0;
+                document.getElementById('chargeHtmlspan').style.display = 'block';
+
             }, 3000);
             
         });
