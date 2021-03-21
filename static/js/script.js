@@ -19,6 +19,7 @@ $(function() {
 
     // commits charge to DB
     $('a#pocketCash').bind('click', function() {
+        let chargeFrozen = charge;
         document.getElementById('pocketCash').style.display = 'none';
         document.getElementById('chargeHtmlspan').style.display = 'none';
         document.getElementById('pocketCashLoading').style.display = 'block';
@@ -30,7 +31,7 @@ $(function() {
         }, function(data) {
             let currentCharge = parseInt(document.getElementById('cardChargeTotal').innerHTML);
             console.log('currentCHarge', currentCharge);
-            let updatedCharge = charge + currentCharge;
+            let updatedCharge = chargeFrozen + currentCharge - 1;
             console.log('updatedCharge',updatedCharge);
             $( "#cardChargeTotal" ).text(updatedCharge);
             setTimeout(function(){ 

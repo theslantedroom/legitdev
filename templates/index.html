@@ -7,7 +7,7 @@
 {% block main %}
 <script>
 // start counter
-var chargeInterval = setInterval(indexTimer, 100);
+var chargeInterval = setInterval(indexTimer, 700);
 function indexTimer() {
     chargeDisplay.innerText = charge;
     charge += 1;
@@ -23,7 +23,7 @@ function myStopFunction() {
 <div class="profileLayout">
 
 
-    <div class="profileCard">  
+    <div class="profileCardIndex">  
         <!-- name -->
         <h4 class="cardName textmedieval">{{ userdata[0]["username"] }}</h4>
         <!-- slogan -->
@@ -42,9 +42,9 @@ function myStopFunction() {
     <p><a href=# id=calculate>add item</a> -->
 
 
-
-    <p>Current Cash on the Table: </p><br>
-    <p id="chargeHtmlspan">$<span id="chargeHtml">charge</span></p>
+    <br><br>  
+    <p>Current Cash on the Table: </p>
+    <p id="chargeHtmlspan">$<span id="chargeHtml">0</span></p>
      <!-- Commit Charge and Reset counter Button--> 
     <a href=# class='btn btn-primary' id='pocketCash'>Pocket the Cash</a>
     <a href=# class='btn btn-primary' id='pocketCashLoading'>Sneaking that cash into your pocket....</a>

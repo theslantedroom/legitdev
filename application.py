@@ -81,7 +81,7 @@ def pocketCash():
     username = userdata['username']
     currentcharge = int(userdata['totalcharge'])
     newCharge = request.args.get('newCharge', 0, type=int)
-    totalcharge = currentcharge + newCharge
+    totalcharge = currentcharge + newCharge - 1
     print('totalcharge', totalcharge)
 
 
