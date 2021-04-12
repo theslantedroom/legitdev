@@ -71,10 +71,10 @@ main img
 {
     background-image: url('./img/paper.png');
     box-sizing: border-box;
-    word-wrap: break-word;
-    border: 1px solid #000;
+    /* word-wrap: break-word; */
+    border: 1px solid rgb(139, 19, 19);
     width: 275px;
-    /* height: 575px; */
+    /* height: 25px; */
     min-width: 250px;
     min-height: 250px;
     margin: auto;
@@ -83,6 +83,7 @@ main img
     margin-right: 2px;
     background-color: antiquewhite;
 }
+
 
 .profileCardIndex
 {
