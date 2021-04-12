@@ -5,55 +5,228 @@
 {% endblock %}
 
 {% block main %}
-    <h2>Register New Account</h2>
+    <h2>Register New Fighter</h2>
     <form action="/register" method="post">
 
-
+<!-- name -->
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" maxlength="14">
         </div>
-
+<!-- slogan -->
         <div class="form-group">
             <input autocomplete="off" class="form-control" name="slogan" placeholder="slogan" type="charf" maxlength="50">
         </div>
-
-        <h6>Please select your alignment:</h6>
-        <input type="radio" id="good" name="alignment" value="good" checked="checked">
-        <label for="good">Good</label> <br>
-        <input type="radio" id="evil" name="alignment" value="evil" >
-        <label for="evil">Evil</label><br>
-        <input type="radio" id="chaotic" name="alignment" value="Chaotic">
-        <label for="chaotic">Chaotic</label><br>
- 
-        <h6>Please select your Race:</h6>
-
-        <input type="radio" id="Human" name="race" value="human" checked="checked">
-        <label for="Human">Human</label><br>
-
-        <input type="radio" id="Alien" name="race" value="alien">
-        <label for="Alien">Alien</label><br>  
-            
-        <input type="radio" id="Beast" name="race" value="beast">
-        <label for="Beast">Beast</label><br>
-
-        <h6>Start with:</h6>
-
-        <input type="radio" id="food" name="startItem" value="Knife" checked="checked">
-        <label for="knife">A Knife</label><br>
-
-        <input type="radio" id="preciousGems" name="startItem" value="Precious Gems">
-        <label for="preciousGems">Precious Gems</label><br>  
-            
-        <input type="radio" id="GoodLuckCharm" name="startItem" value="Good Luck Charm">
-        <label for="GoodLuckCharm">A Good Luck Charm</label><br>
-
-
+<!-- password -->
         <div class="form-group">
             <input class="form-control" name="registerpassword1" placeholder="Password" type="password">
             <input class="form-control" name="registerpassword2" placeholder="Re-type Password" type="password">
         </div>
+<!-- fightstyle -->
+        <h6>Please select your Style:</h6>
+        <input type="radio" id="Accurate" name="fightstyle" value="The Swarmer" checked="checked"> 
+        <label for="Accurate">The Swarmer</label><br>  
+            
+        <input type="radio" id="TheOutBoxer" name="fightstyle" value="The Out-Boxer">
+        <label for="The Out-Boxer">The Out-Boxer</label><br>
+
+        <input type="radio" id="TheSlugger" name="fightstyle" value="The Slugger">
+        <label for="TheSlugger">The Slugger</label><br>
+
+        <input type="radio" id="TheBoxerPuncher" name="fightstyle" value="The Boxer-Puncher">
+        <label for="TheBoxerPuncher">The Boxer-Puncher</label><br>
+
+        <input type="radio" id="TheCounterPuncher" name="fightstyle" value="The Counter Puncher">
+        <label for="TheCounterPuncher">The Counter Puncher</label><br>
+
+        <input type="radio" id="TheSouthpaw" name="fightstyle" value="The Southpaw">
+        <label for="TheSouthpaw">The Southpaw</label><br>
 
 
-        <button class="btn btn-primary" type="submit">Log In</button>
+        
+        
+
+
+        <h2>GENERATE STATS</h2>
+        <div id="rerollbutton" class="btn btn-primary" type="submit">Reroll</div>
+
+        <h3>Body</h3>
+        <div>Height: <input size="1" id="heightCm" class='statbox' type="text" name="heightCm" value="0" readonly>cm - <span id="heightFeet"></span></div>
+        <div>Weight: <input size="1" id="weightKg" class='statbox' type="text" name="weightKg" value="0" readonly>kg - <span id="weightLb"></span>Lbs</div>
+
+        <h3>Accuracy</h3>
+        <div>Jab: <input size="1" id="jab" class='statbox' type="text" name="jab" value="0" readonly>%</div>
+        <div>Cross: <input size="1" id="cross" class='statbox' type="text" name="cross" value="0" readonly>%</div>
+        <div>Left Hook: <input size="1" id="lhook" class='statbox' type="text" name="lhook" value="0" readonly>%</div>
+        <div>Right Hook: <input size="1" id="rhook" class='statbox' type="text" name="rhook" value="0" readonly>%</div>
+
+        <div>Left Body: <input size="1" id="lbody" class='statbox' type="text" name="lbody" value="0" readonly>%</div>
+        <div>Right Body: <input size="1" id="rbody" class='statbox' type="text" name="rbody" value="0" readonly>%</div>
+        <div>Left Uppercut: <input size="1" id="lupper" class='statbox' type="text" name="lupper" value="0" readonly>%</div>
+        <div>Right Uppercut: <input size="1" id="rupper" class='statbox' type="text" name="rupper" value="0" readonly>%</div>
+
+        <h3>Conditioning</h3>
+        <div>Power: <input size="1" id="power" class='statbox' type="text" name="power" value="0" readonly>%</div>
+        <div>Speed: <input size="1" id="speed" class='statbox' type="text" name="speed" value="0" readonly>%</div>
+        <div>Dodge: <input size="1" id="dodge" class='statbox' type="text" name="dodge" value="0" readonly>%</div>
+        <div>Chin: <input size="1" id="chin" class='statbox' type="text" name="chin" value="0" readonly>%</div>
+        <div>Stamina: <input size="1" id="stamina" class='statbox' type="text" name="stamina" value="0" readonly>%</div>
+
+
+<br>
+        <button class="btn btn-primary" type="submit">LOOKS GOOD - CREATE FIGHTER</button>
+
     </form>
+
+    <script>
+        // body vars
+        let heightFeet = document.getElementById("heightFeet");
+        let heightCm = document.getElementById("heightCm");
+
+        let weightKg = document.getElementById("weightKg");
+        let weightLb = document.getElementById("weightLb");
+
+        let jab = document.getElementById("jab");
+        let cross = document.getElementById("cross");
+        let lhook = document.getElementById("lhook");
+        let rhook = document.getElementById("rhook");
+        let lbody = document.getElementById("lbody");
+        let rbody = document.getElementById("rbody");
+        let lupper = document.getElementById("lupper");
+        let rupper = document.getElementById("rupper");
+
+        let speed = document.getElementById("speed");
+        let dodge = document.getElementById("dodge");
+        let chin = document.getElementById("chin");
+        let stamina = document.getElementById("stamina");
+        let power = document.getElementById("power");
+
+
+
+
+        // get random number
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) ) + min;
+        }
+ 
+        // convert to feet
+        function toFeet(n) {
+                var realFeet = ((n*0.393700) / 12);
+                var feet = Math.floor(realFeet);
+                var inches = Math.round((realFeet - feet) * 12);
+                return feet + "' " + inches + '"';
+        }
+            
+        // click Reroll
+        let reroll = () => {
+            // roll new values
+            let newHeight = getRndInteger(35,53)+getRndInteger(31,55)+getRndInteger(31,55)+getRndInteger(31,55);
+            newFighter.height = newHeight;
+            let weightratio = newHeight/190;
+
+            let newWeight = (getRndInteger(40, 160)*weightratio).toFixed(0);
+            newFighter.weight = newWeight;
+            let speedratio = 50/newWeight;
+            let chinratio = newWeight/150;
+            let powerratio = newWeight/100;
+
+            console.log('speedratio', speedratio);
+            console.log('weightratio', weightratio);
+            console.log('chinratio', chinratio);
+            console.log('powerratio', powerratio);
+
+
+
+
+
+            let newJab = (getRndInteger(40, 80)*speedratio).toFixed(0);
+            let newCross = (getRndInteger(30, 70)*speedratio).toFixed(0);
+            let newLhook = (getRndInteger(20, 60)*speedratio).toFixed(0);
+            let newRhook = (getRndInteger(20, 60)*speedratio).toFixed(0);
+
+            let newLbody = (getRndInteger(20, 60)*speedratio).toFixed(0);
+            let newRbody = (getRndInteger(20, 60)*speedratio).toFixed(0);
+            let newLupper = (getRndInteger(10, 50)*speedratio).toFixed(0);
+            let newRupper = (getRndInteger(10, 50)*speedratio).toFixed(0);
+
+            let newSpeed = (getRndInteger(50, 100)*speedratio).toFixed(0);
+            let newDodge = (getRndInteger(50, 100)*speedratio).toFixed(0);
+            let newChin = (getRndInteger(20, 100)*chinratio).toFixed(0);
+            let newStamina = (getRndInteger(20, 100)*weightratio).toFixed(0);
+            let newPower = (getRndInteger(20, 100)*powerratio).toFixed(0);
+
+
+
+            newFighter.jab = newJab;
+            newFighter.cross = newCross;
+            newFighter.lhook = newLhook;
+            newFighter.rhook = newRhook;
+
+            newFighter.lbody = newLbody;
+            newFighter.rbody = newRbody;
+            newFighter.lupper = newLupper;
+            newFighter.rupper = newRupper;
+            newFighter.speed = newSpeed;
+            newFighter.dodge = newDodge;
+            newFighter.chin = newChin;
+            newFighter.stamina = newStamina;
+            newFighter.power = newPower;
+
+
+            // update text BOdy stats
+            heightCm.value = newFighter.height;
+            heightFeet.innerText = toFeet(newHeight);
+            weightKg.value = newFighter.weight;
+            weightLb.innerText = (newFighter.weight*2.205).toFixed(0);
+            jab.value = newFighter.jab;
+            cross.value = newFighter.cross;
+            lhook.value = newFighter.lhook;
+            rhook.value = newFighter.rhook;
+
+            lbody.value = newFighter.lbody;
+            rbody.value = newFighter.rbody;
+            lupper.value = newFighter.lupper;
+            rupper.value = newFighter.rupper;
+            speed.value = newFighter.speed;
+            dodge.value = newFighter.dodge;
+            chin.value = newFighter.chin;
+            stamina.value = newFighter.stamina;
+            power.value = newFighter.power;
+
+
+        };
+        let rerollbutton = document.getElementById("rerollbutton");
+        rerollbutton.addEventListener('click', reroll);
+        // Roll stats
+
+        class Fighter {
+            constructor(height, weight, jab, cross, lhook, rhook, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power) {
+                this.height = Number(height)
+                this.weight = Number(weight)
+                this.jab = Number(jab)
+                this.cross = Number(cross)
+                this.lhook = Number(lhook)
+                this.rhook = Number(rhook)
+                this.lbody = Number(lbody)
+                this.rbody = Number(rbody)
+                this.lupper = Number(lupper)
+                this.rupper = Number(rupper)
+                this.speed = Number(speed)
+                this.dodge = Number(dodge)
+                this.chin = Number(chin)
+                this.stamina = Number(stamina)
+                this.power = Number(power)
+
+
+
+            }
+        }
+
+        const newFighter = new Fighter();
+        reroll();
+
+
+
+
+
+    </script>
 {% endblock %}

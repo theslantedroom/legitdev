@@ -2,10 +2,21 @@
 
 .textmedieval {
     font-family: 'MedievalSharp', cursive;
+    color: black;
+    background-image: url(./img/paper.png);
 }
 
-
-
+body{
+    background-color: black;
+    background-image: url('./img/box.jpg');
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    color: beige;
+}
+h2{
+    color: blanchedalmond;
+}
 main
 {
     /* Scroll horizontally as needed */
@@ -63,7 +74,7 @@ main img
     word-wrap: break-word;
     border: 1px solid #000;
     width: 275px;
-    height: 275px;
+    /* height: 575px; */
     min-width: 250px;
     min-height: 250px;
     margin: auto;
@@ -79,7 +90,7 @@ main img
     box-sizing: border-box;
     word-wrap: break-word;
     border: 1px solid #000;
-    height: 275px;
+    height: 575px;
     min-width: 250px;
     min-height: 250px;
     margin: auto;
@@ -91,6 +102,7 @@ main img
 
 .cardName
 {
+    color: black;
     position: relative;
     font-weight: bolder;
     margin-top: 3px;
@@ -114,4 +126,24 @@ padding-top: 0;
     text-align: left;
     padding-top: 0px;
     margin: 0 0 0 0;
+}
+.statbox
+{
+    text-align: right;
+    width: auto;
+    border: none;
+    background-color: black;
+    color: blanchedalmond;
+    padding: 0;
+    overflow: visible;
+}
+
+h3{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+h5{
+    margin-top: 10px;
+    margin-bottom: 0;
 }

@@ -5,25 +5,68 @@ leaderboard
 {% endblock %}
 
 {% block main %}
-<h2 class="textmedieval">Life Forms</h2>
+<h2 class="textmedieval">All Fighters</h2>
 <div class="heroes">
-    
+    <!-- userdata = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'])) -->
 
     {% for user in listUsers %}
     <div class="profileCard">  
         <!-- name -->
         <h4 class="cardName textmedieval">{{ user[1] }}</h4>
-        <!-- slogan -->
+        <!-- slogan -->        
         <p class="cardslogan textmedieval">"{{ user[2] }}"</p>
-        <p class="cardleft textmedieval"> Race: {{ user[4] }}</p>
-        <p class="cardleft textmedieval">Alignment: {{ user[3] }}</p>
-        <p class="cardleft">$<span id="cardChargeTotal" class="totalCharge">{{ user[5] }}</span></p>
+        
+        <p class="cardleft textmedieval">Height: {{ user[5] }}cm / <span id='feet'>{{ ((user[5] / 2.54)/12)|int }}</span>'<span id='inches'>{{ ((user[5] / 2.54)|round|int)%12 }}</span>"</p>
+        <p class="cardleft textmedieval">Weight: {{ user[6] }}kg / <span id='lbs'>{{ (user[6]*2.205)|round|int }}</span>Lbs.</p>
+
+        <p class="cardleft textmedieval">Style: {{ user[4] }}</p>
+        <p class="cardleft">Cash: $<span id="cardChargeTotal" class="totalCharge">{{ user[3] }}</span></p>
+
+
+        <h4></h4>
+        <!-- (newFighter.weight*2.205).toFixed(0) -->
+        <!-- ((n*0.393700) / 12) -->
+
+        <h5 class="textmedieval">Accuracy</h5>
+        <p class="cardleft textmedieval">Jab: {{ user[7] }}%</p>
+        <p class="cardleft textmedieval">Cross: {{ user[8] }}%</p>
+        <p class="cardleft textmedieval">Left Hook: {{ user[9] }}%</p>
+        <p class="cardleft textmedieval">Right Hook: {{ user[10] }}%</p>
+        <p class="cardleft textmedieval">Left Body: {{ user[11] }}%</p>
+        <p class="cardleft textmedieval">Right Body: {{ user[12] }}%</p>
+        <p class="cardleft textmedieval">Left Uppercut: {{ user[13] }}%</p>
+        <p class="cardleft textmedieval">Right Uppercut: {{ user[14] }}%</p>
+
+        <h5 class="textmedieval">Conditioning</h5>
+        <p class="cardleft textmedieval">Power: {{ user[19] }}%</p>
+        <p class="cardleft textmedieval">Speed: {{ user[15] }}%</p>
+        <p class="cardleft textmedieval">Dodge: {{ user[16] }}%</p>
+        <p class="cardleft textmedieval">Chin: {{ user[17] }}%</p>
+        <p class="cardleft textmedieval">Stamina: {{ user[18] }}%</p>
+
+
+        <h5 class="textmedieval">Record</h5>
+        <p class="cardleft textmedieval">Win: {{ user[20] }}</p>
+        <p class="cardleft textmedieval">Loses: {{ user[21] }}</p>
+        <p class="cardleft textmedieval">Draws: {{ user[22] }}</p>
+        <p class="cardleft textmedieval">Knock Outs: {{ user[23] }}</p>
+
+
+
+
+
+        
         
         
     </div>         
 
+    <script>
+
+    </script>
 
     {% endfor %}
 </div> 
+
+
 
 {% endblock %}

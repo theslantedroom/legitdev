@@ -1,3 +1,5 @@
+
+
 let charge = 0
 
 // specifies code that should run once the browser is done loading the basic parts of the page.
@@ -50,7 +52,6 @@ $(function() {
 
 // Charge Display
 let chargeDisplay = document.getElementById("chargeHtml");
-
 
 
 

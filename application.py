@@ -69,7 +69,7 @@ os.environ["DEBUSSY"] = "1"
 
 #     result = newItem + ' ' + b
 #     # add item into DB inventory
-#     db.execute("INSERT INTO inventory (id, username, itemname) VALUES(?, ?, ?)", userID, username, result)
+#     db.execute("INSERT INTO inventory (id, username, fightstyle) VALUES(?, ?, ?)", userID, username, result)
 #     return jsonify(result=result)
 
 # gets a json with data
@@ -105,7 +105,7 @@ def index():
         # make list of inventory
         listInv = []
         for i, row in enumerate(inventory):
-            invdata = inventory[i]['itemname']
+            invdata = inventory[i]['fightstyle']
             listInv.append(invdata)
 
         print(listInv, "listInv")
@@ -177,14 +177,37 @@ def register():
         return render_template("register.html")
 
     if request.method == "POST":
+        # form values for character
         username = request.form.get('username')
         slogan = request.form.get('slogan')
-        alignment = request.form.get('alignment')
-        race = request.form.get('race')
-        startItem = request.form.get('startItem')
+        # alignment = request.form.get('alignment')
+        # race = request.form.get('race')
+        fightstyle = request.form.get('fightstyle')
         registerpassword1 = request.form.get('registerpassword1')
         registerpassword2 = request.form.get('registerpassword2')
         PWhash = generate_password_hash(registerpassword1)
+
+        # stat values for character
+        height = request.form.get('heightCm')
+        weight = request.form.get('weightKg')
+        print(height)
+        jab = request.form.get('jab')
+        straightcross = request.form.get('cross')
+        lhook = request.form.get('lhook')
+        rhook = request.form.get('rhook')
+
+        lbody = request.form.get('lbody')
+        rbody = request.form.get('rbody')
+        lupper = request.form.get('lupper')
+        rupper = request.form.get('rupper')
+        speed = request.form.get('speed')
+        dodge = request.form.get('dodge')
+        chin = request.form.get('chin')
+        stamina = request.form.get('stamina')
+        power = request.form.get('power')
+
+
+
         registeredUsers = db.execute("SELECT username FROM users")
 
         if len(username) > 14:
@@ -193,10 +216,6 @@ def register():
             return apology("you need a name pal")
         if not slogan:
             return apology("enter a slogan bud")
-        if not alignment:
-            return apology("pick a alignment")
-        if not race:
-            return apology("pick a race")
         if not registerpassword1:
             return apology("did not enter password")
         if not registerpassword2:
@@ -207,11 +226,11 @@ def register():
         if db.execute("SELECT * FROM users WHERE username = :username",
             username=request.form.get("username")):
             return apology("that username is taken")
-        db.execute("INSERT INTO users (username, hash, slogan, alignment, race) VALUES(?, ?, ?, ?, ?)", username, PWhash, slogan, alignment, race)
+        db.execute("INSERT INTO users (username, hash, slogan, fightstyle, height, weight, jab, straightcross, lhook, rhook, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", username, PWhash, slogan, fightstyle, height, weight, jab, lhook, rhook, straightcross, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power)
 
         userID = int(db.execute("SELECT id FROM users WHERE username = :userName", userName=username)[0]['id'])
     
-        db.execute("INSERT INTO inventory (id, username, itemname, quantity) VALUES(?, ?, ?, ?)", userID, username, startItem, 1)
+        # db.execute("INSERT INTO inventory (id, username, fightstyle, quantity) VALUES(?, ?, ?, ?)", userID, username, fightstyle, 1)
 
         return redirect("/")
 
@@ -225,7 +244,7 @@ def showusers():
         # print('listusers ',users)
         listUsers = []
         for user in users:
-            userdata = list((user['id'] ,user['username'], user['slogan'], user['alignment'], user['race'], user['totalcharge'] ))
+            userdata = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'], user['power'], user['wins'], user['loses'], user['draws'], user['kos']))
             listUsers.append(userdata)
 
     return render_template("showusers.html", listUsers=listUsers)
