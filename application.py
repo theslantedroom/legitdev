@@ -16,7 +16,7 @@ project_folder = os.path.expanduser('./')  # adjust as appropriate
 load_dotenv(os.path.join(project_folder, '.env'))
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, send_from_directory, jsonify
+from flask import Flask, flash, redirect, render_template, request, session, send_from_directory, jsonify, url_for
 from flask_session import Session
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_cors import CORS, cross_origin
@@ -80,7 +80,11 @@ def pocketCash():
     userdata = db.execute("SELECT username, totalcharge FROM users WHERE id = :id", id=userID)[0]
     username = userdata['username']
     currentcharge = int(userdata['totalcharge'])
+    print('currentcharge', currentcharge)
+
     newCharge = request.args.get('newCharge', 0, type=int)
+    print('newCharge', newCharge)
+
     totalcharge = currentcharge + newCharge - 1
     print('totalcharge', totalcharge)
 
@@ -108,7 +112,7 @@ def index():
             invdata = inventory[i]['fightstyle']
             listInv.append(invdata)
 
-        print(listInv, "listInv")
+        # print(listInv, "listInv")
 
     return render_template("index.html", userdata=userdata, listInv=listInv)
 
@@ -130,7 +134,13 @@ def login():
     # Forget any user_id
     session.clear()
 
+    # registerpassword1 = request.args['registerpassword1'] 
+
+
+    # userID = request.args['userID'] 
+
     # User reached route via POST (as by submitting a form via POST)
+
     if request.method == "POST":
 
         # Ensure username was submitted
@@ -160,7 +170,20 @@ def login():
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        return render_template("login.html")
+        try:
+            username = request.args['un'] 
+            password = request.args['pw'] 
+
+            print("username", username)
+
+        except:
+            username = ''
+            password = ''
+            pass
+
+        return render_template("login.html", username=username, password=password)
+        # return render_template("login.html", username)
+
 
 @app.route("/logout")
 def logout():
@@ -190,7 +213,6 @@ def register():
         # stat values for character
         height = request.form.get('heightCm')
         weight = request.form.get('weightKg')
-        print(height)
         jab = request.form.get('jab')
         straightcross = request.form.get('cross')
         lhook = request.form.get('lhook')
@@ -232,8 +254,8 @@ def register():
     
         # db.execute("INSERT INTO inventory (id, username, fightstyle, quantity) VALUES(?, ?, ?, ?)", userID, username, fightstyle, 1)
 
-        return redirect("/")
-
+        # return redirect("/login", userID=userID, username=username, registerpassword1=registerpassword1 )
+        return redirect(url_for('.login', pw=registerpassword1, un=username))
 
 
 

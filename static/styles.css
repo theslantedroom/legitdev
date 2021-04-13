@@ -4,7 +4,24 @@
     font-family: 'MedievalSharp', cursive;
     color: black;
     background-image: url(./img/paper.png);
+    background-size: cover;
+    
 }
+.bold{
+    font-weight: bold;
+}
+
+.textmedievalhead {
+    font-family: 'MedievalSharp', cursive;
+    color: black;
+    padding-top: 5px;
+    margin-top: 10px;
+
+}
+p{
+    margin: 0;
+}
+
 
 body{
     background-color: black;
@@ -16,6 +33,24 @@ body{
 }
 h2{
     color: blanchedalmond;
+}
+h3{
+    margin-top: 0;
+    margin-bottom: 0;
+
+}
+h4{
+    padding: 0 0 0 0;
+    margin-bottom: 0;
+
+}
+
+h5{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+h6{
+    margin: 0;
 }
 main
 {
@@ -84,14 +119,17 @@ main img
     background-color: antiquewhite;
 }
 
-
+#indexbanner{
+    width: 100%;
+}
 .profileCardIndex
 {
     background-image: url('./img/paper.png');
+    background-size: cover;
     box-sizing: border-box;
     word-wrap: break-word;
     border: 1px solid #000;
-    height: 575px;
+    /* height: 575px; */
     min-width: 250px;
     min-height: 250px;
     margin: auto;
@@ -99,6 +137,8 @@ main img
     margin-left: 2px;
     margin-right: 2px;
     background-color: antiquewhite;
+    overflow: hidden;
+    padding-bottom: 15px;
 }
 
 .cardName
@@ -121,13 +161,6 @@ padding: 0px 0px 10px 0px;
 padding-top: 0;
 }
 
-.cardleft
-{
-    color: #110c0c;
-    text-align: left;
-    padding-top: 0px;
-    margin: 0 0 0 0;
-}
 .statbox
 {
     text-align: right;
@@ -138,13 +171,57 @@ padding-top: 0;
     padding: 0;
     overflow: visible;
 }
+.statistic{
+    position: relative;
+    display: inline;
+margin: 0;    padding: 0px 0px 0 0;
 
-h3{
-    margin-top: 10px;
-    margin-bottom: 0;
+
 }
 
-h5{
-    margin-top: 10px;
-    margin-bottom: 0;
+.grid-container {
+    align-items: center;
+    justify-items: center; /* adjusted */
+    display: grid;
+    grid-template-columns: 25vw 25vw 25vw 25vw;
+  }
+.grid-item {
+
+text-align: center;
+text-align: center;
+color: black;
+}
+
+@media only screen and (max-width: 600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50vw 50vw;
+
+        grid-template-columns: 50vw 50vw ;
+      }
+  }
+@media only screen and (max-width: 300px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto ;
+
+        grid-template-columns: auto  ;
+        grid-template-rows:  auto ;
+      }
+  }
+.indexstatcategory
+{
+    width: 40%;
+    display: inline;
+    overflow: hidden;
+}
+
+
+#createFighterLoad
+{
+    display: none;
+    margin: auto;
+}
+.container p-1{
+    width: 100vw;
 }

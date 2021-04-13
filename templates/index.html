@@ -5,68 +5,56 @@
 {% endblock %}
 
 {% block main %}
-<script>
-// start counter
-var chargeInterval = setInterval(indexTimer, 700);
-function indexTimer() {
-    chargeDisplay.innerText = charge;
-    charge += 1;
-}
-function myStopFunction() {
-    clearInterval(chargeInterval);
-}
-</script>
 
-<h2 class="textmedieval">welcome back {{ userdata[0]["username"] }}</h2>
+<h2 class="">{{ userdata[0]["username"] }}</h2>
+
 
 
 <div class="profileLayout">
 
 
     <div class="profileCardIndex">  
-        <!-- name -->
-        <h4 class="cardName textmedieval">{{ userdata[0]["username"] }}</h4>
+        <img id="indexbanner" src="/static/img/box1.gif" alt="img">
         <!-- slogan -->
-        <p class="cardslogan textmedieval">"{{ userdata[0]["slogan"] }}"</p>
-        <p class="cardleft textmedieval"> Race: {{ userdata[0]["race"] }}</p>
-        <p class="cardleft textmedieval">Alignment: {{ userdata[0]["alignment"] }}</p>
-        <p class="cardleft textmedieval">Style: {{ userdata[0]["fightstyle"] }}</p>
+        <p class="cardslogan">"{{ userdata[0]["slogan"] }}"</p>
+
+        <div class="grid-container">
+            <p class="statistic grid-item">Height: {{ userdata[0]["height"] }}cm / <span id='feet'>{{ ((userdata[0]["height"] / 2.54)/12)|int }}</span>'<span id='inches'>{{ ((userdata[0]["height"] / 2.54)|round|int)%12 }}</span>"</p>
+            <p class="statistic grid-item">Weight: {{ userdata[0]["weight"] }}kg / <span id='lbs'>{{ (userdata[0]["weight"]*2.205)|round|int }}</span>Lbs.</p>
+            <p class="statistic grid-item ">Style: {{ userdata[0]["fightstyle"] }}</p>
+            <p class="statistic grid-item">Cash: $<span id="cardChargeTotal" class="totalCharge">{{ userdata[0]["totalcharge"] }}</span></p>
+        </div>
+
+        <h4 class="textmedievalhead bold">Punch Skill</h4>
+        <div class="grid-container">
+            <p class="statistic grid-item">Jab: {{ userdata[0]["jab"] }}%</p>
+            <p class="statistic grid-item">Cross: {{ userdata[0]["straightcross"] }}%</p>
+            <p class="statistic grid-item">Left Hook: {{ userdata[0]["lhook"] }}%</p>
+            <p class="statistic grid-item">Right Hook: {{ userdata[0]["rhook"] }}%</p>
+            <p class="statistic grid-item">Left Body: {{ userdata[0]["lbody"] }}%</p>
+            <p class="statistic grid-item">Right Body: {{ userdata[0]["rbody"] }}%</p>
+            <p class="statistic grid-item">Left Uppercut: {{ userdata[0]["lupper"] }}%</p>
+            <p class="statistic grid-item">Right Uppercut: {{ userdata[0]["rupper"] }}%</p>
+        </div>
 
 
-        <h4 class="textmedieval">Punch Skill</h4>
-
-        <p class="cardleft textmedieval">Jab: {{ userdata[0]["jab"] }}%</p>
-        <p class="cardleft textmedieval">Cross: {{ userdata[0]["straightcross"] }}%</p>
-        <p class="cardleft textmedieval">Left Hook: {{ userdata[0]["lhook"] }}%</p>
-        <p class="cardleft textmedieval">Right Hook: {{ userdata[0]["rhook"] }}%</p>
-        <p class="cardleft textmedieval">Left Body: {{ userdata[0]["lbody"] }}%</p>
-        <p class="cardleft textmedieval">Right Body: {{ userdata[0]["rbody"] }}%</p>
-        <p class="cardleft textmedieval">Left Uppercut: {{ userdata[0]["lupper"] }}%</p>
-        <p class="cardleft textmedieval">Right Uppercut: {{ userdata[0]["rupper"] }}%</p>
-
-        <h4 class="textmedieval">Conditioning</h4>
-        <p class="cardleft textmedieval">Speed: {{ userdata[0]["speed"] }}%</p>
-        <p class="cardleft textmedieval">Dodge: {{ userdata[0]["dodge"] }}%</p>
-        <p class="cardleft textmedieval">Chin: {{ userdata[0]["chin"] }}%</p>
-        <p class="cardleft textmedieval">Stamina: {{ userdata[0]["stamina"] }}%</p>
+        <h4 class="textmedievalhead bold">Conditioning</h4>
+        <div class="grid-container">
+            <p class="statistic grid-item">Speed: {{ userdata[0]["speed"] }}%</p>
+            <p class="statistic grid-item">Dodge: {{ userdata[0]["dodge"] }}%</p>
+            <p class="statistic grid-item">Chin: {{ userdata[0]["chin"] }}%</p>
+            <p class="statistic grid-item">Stamina: {{ userdata[0]["stamina"] }}%</p>
+        </div>
 
 
 
-        <p class="cardleft">$<span id="cardChargeTotal" class="totalCharge">{{ userdata[0]["totalcharge"] }}</span></p>
     </div>   
 
 
 
-    <!-- <h1>Add</h1>
-    <p><input type=text size=5 name=newItem> +
-    <input type=text size=5 name=b> =
-    <span id=result>?</span>
-    <p><a href=# id=calculate>add item</a> -->
 
-
-    <br><br>  
     <p>Current Cash on the Table: </p>
-    <p id="chargeHtmlspan">$<span id="chargeHtml">0</span></p>
+    <p id="chargeHtmlspan">$<span id="cashontable">0</span></p>
      <!-- Commit Charge and Reset counter Button--> 
     <a href=# class='btn btn-primary' id='pocketCash'>Pocket the Cash</a>
     <a href=# class='btn btn-primary' id='pocketCashLoading'>Sneaking that cash into your pocket....</a>
@@ -80,10 +68,10 @@ function myStopFunction() {
     
 
     <div class="">  
-        <h1>Inventory:</h1>
+        <!-- <h1>Inventory:</h1> -->
         <div id="inventoryCard">
         {% for item in listInv %}
-            <p class="cardName textmedieval">{{ item }}</p>
+            <p class="cardName grid-item">{{ item }}</p>
         {% endfor %}
         </div>
 
@@ -92,7 +80,57 @@ function myStopFunction() {
 
 </div>
 
+<script>
+    
 
+    let charge = 0
+    let currentCharge = parseInt(document.getElementById('cardChargeTotal').innerHTML);
+    let chargeDisplay = document.getElementById("cashontable");
+    
+    // start counter
+    
+    var chargeInterval = setInterval(indexTimer, 700);
+    function indexTimer() {
+        chargeDisplay.innerText = charge;
+        charge += 1;
+    }
+    function myStopFunction() {
+        clearInterval(chargeInterval);
+    }
+    
+    // specifies code that should run once the browser is done loading the basic parts of the page.
+    $(function() {
+        // commits charge to DB
+        $('a#pocketCash').bind('click', function() {
+            let chargeFrozen = charge;
+            charge = 0;
+            document.getElementById('pocketCash').style.display = 'none';
+            document.getElementById('chargeHtmlspan').style.display = 'none';
+            document.getElementById('pocketCashLoading').style.display = 'block';
+    
+            // sends a GET request to url and will send the contents of the data object as query parameters. Once the data arrived, it will call the given function with the return value as argument. Note that we can use the $SCRIPT_ROOT variable here that we set earlier. calls serverAI in app.py
+            $.getJSON($SCRIPT_ROOT + '/pocketCash', {
+                newCharge: chargeFrozen
+            }, function(data) {
+                    console.log('currentCHarge', currentCharge);
+                    let updatedCharge = chargeFrozen + currentCharge- 1 ;
+                    console.log('updatedCharge',updatedCharge);
+                    $( "#cardChargeTotal" ).text(updatedCharge);
+                    setTimeout(function(){ 
+                        document.getElementById('pocketCash').style.display = 'block'; 
+                        document.getElementById('pocketCashLoading').style.display = 'none';
+                        charge = 0;
+                        document.getElementById('chargeHtmlspan').style.display = 'block';
+    
+                    }, 000);
+                    
+                });
+                return false;
+            });
+        });
+    
+    </script>
+    
 
 
 {% endblock %}

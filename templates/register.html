@@ -10,7 +10,7 @@
 
 <!-- name -->
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" maxlength="14">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Generic Gi" type="text" maxlength="14">
         </div>
 <!-- slogan -->
         <div class="form-group">
@@ -47,7 +47,9 @@
 
 
         <h2>GENERATE STATS</h2>
-        <div id="rerollbutton" class="btn btn-primary" type="submit">Reroll</div>
+        <div id="rerollbutton" class="btn btn-primary" type="submit">Reroll Stats</div>        
+        <button id='createFighter' class="btn btn-primary" type="submit">LOOKS GOOD - CREATE FIGHTER</button>
+        <button id='createFighterLoad' class="btn btn-primary" type="submit">Saving Figher</button>
 
         <h3>Body</h3>
         <div>Height: <input size="1" id="heightCm" class='statbox' type="text" name="heightCm" value="0" readonly>cm - <span id="heightFeet"></span></div>
@@ -73,7 +75,8 @@
 
 
 <br>
-        <button class="btn btn-primary" type="submit">LOOKS GOOD - CREATE FIGHTER</button>
+
+
 
     </form>
 
@@ -225,6 +228,16 @@
         reroll();
 
 
+    // change createChar button on load
+    let changeCharbtn = () => {
+        console.log('cbt');
+        document.getElementById('createFighterLoad').style.display = 'block';
+        document.getElementById('createFighter').style.display = 'none';
+        document.getElementById('rerollbutton').style.display = 'none';
+
+    }
+
+    document.getElementById('createFighter').addEventListener('click', changeCharbtn)
 
 
 
