@@ -174,7 +174,7 @@ font-weight: 900;
 
 .statbox
 {
-    text-align: center;
+    text-align: right;
     width: auto;
     border: none;
     background-color: black;
@@ -189,16 +189,16 @@ font-weight: 900;
     padding: 0px 0px 0 0;
 }
 .statisticregister{
-    text-align: left;
-    position: relative;
+    text-align: right;
     display: inline-block;
     margin: 0;    
-    padding: 0px 0px 0 0;
+    padding: 0px 5px 0 5px;
+    background-color: black;
 }
 
 .grid-container {
     width: 100%;
-    max-width: 1000px;
+    /* max-width: 1000px; */
     align-items: center;
     justify-items: center; /* adjusted */
     display: grid;
