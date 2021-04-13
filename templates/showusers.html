@@ -5,7 +5,7 @@ leaderboard
 {% endblock %}
 
 {% block main %}
-<h2 class="textmedieval">All Fighters</h2>
+<h2 class="roster">Roster</h2>
 <div class="heroes">
     <!-- userdata = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'])) -->
 
@@ -41,7 +41,7 @@ leaderboard
         <h5 class="textmedieval bold">Conditioning</h5>
         <p class="statistic textmedieval">Power: {{ user[19] }}%</p>
         <p class="statistic textmedieval">Speed: {{ user[15] }}%</p>
-        <p class="statistic textmedieval">Dodge: {{ user[16] }}%</p>
+        <p class="statistic textmedieval">Dodge: {{ user[16] }}%</p><br>
         <p class="statistic textmedieval">Chin: {{ user[17] }}%</p>
         <p class="statistic textmedieval">Stamina: {{ user[18] }}%</p>
 

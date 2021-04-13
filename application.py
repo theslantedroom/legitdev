@@ -122,10 +122,19 @@ def index():
 def buy():
     return redirect("/")
 
-@app.route("/sell", methods=["GET", "POST"])
+@app.route("/fight", methods=["GET", "POST"])
 @login_required
-def sell():
-    return redirect("/")
+def fight():
+    userid = session["user_id"]
+    users = db.execute("SELECT * FROM users")
+    # print('listusers ',users)
+    listUsers = []
+    for user in users:
+        userdata = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'], user['power'], user['wins'], user['loses'], user['draws'], user['kos']))
+        listUsers.append(userdata)
+
+    return render_template("fight.html", listUsers=listUsers)
+
 
 
 @app.route("/login", methods=["GET", "POST"])

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <form action="/sell" method="post">
+        <div class="form-group">
+            <h3>Pick a Challenger</h3>
+            <p>todo - fights not yet implemented</p>
+            <select id="stock" name="symbol">
+            {% for user in listUsers %}
+                <option value={{ key }}> {{ user[1] }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input min="1" autocomplete="off" autofocus class="form-control" name="sellCount" placeholder="Fight Challenge Message" type="number">
+        </div>
+        <button id="submit" class="btn btn-primary" type="submit">Send Challenge</button>
+    </form>
+{% endblock %}
