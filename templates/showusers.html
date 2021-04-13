@@ -18,7 +18,7 @@ leaderboard
         
         <p class="statistic textmedieval"><span id='feet'>{{ ((user[5] / 2.54)/12)|int }}</span>'<span id='inches'>{{ ((user[5] / 2.54)|round|int)%12 }}</span>" - </p>
         <!-- <p class="statistic textmedieval">Height: {{ user[5] }}cm / <span id='feet'>{{ ((user[5] / 2.54)/12)|int }}</span>'<span id='inches'>{{ ((user[5] / 2.54)|round|int)%12 }}</span>"</p> -->
-        <p class="statistic textmedieval"><span id='lbs'>{{ (user[6]*2.205)|round|int }}</span>Lbs.</p>
+        <p class="statistic textmedieval"><span id='lbs'>{{ (user[6]*2.205)|round|int }}</span>lbs.</p>
         <!-- <p class="statistic textmedieval">Weight: {{ user[6] }}kg / <span id='lbs'>{{ (user[6]*2.205)|round|int }}</span>Lbs.</p> -->
 
         <p class="statistic textmedieval">{{ user[4] }}</p><br>
@@ -46,12 +46,12 @@ leaderboard
         <p class="statistic textmedieval">Stamina: {{ user[18] }}%</p>
 
 
-        <h6 class="">win-loss-draw-ko</h6>
-        <p class="statistic ">{{ user[20] }}-</p>
-        <p class="statistic ">{{ user[21] }}-</p>
-        <p class="statistic ">{{ user[22] }}-</p>
-        <p class="statistic ">{{ user[23] }}</p><br>
-        <p class="statistic textmedieval ">Cash: $<span id="cardChargeTotal" class="totalCharge">{{ user[3] }}</span></p>
+        <h6 class="record">win-loss-draw-ko</h6>
+        <p class="statistic record">{{ user[20] }}-</p>
+        <p class="statistic record">{{ user[21] }}-</p>
+        <p class="statistic record">{{ user[22] }}-</p>
+        <p class="statistic record">{{ user[23] }}</p><br>
+        <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ user[3] }}</span></p>
 
 
 

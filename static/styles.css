@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
 
 
 .textmedieval {
     /* font-family: 'MedievalSharp', cursive; */
     color: black;
-    background-image: url(./img/paper.png);
+    /* background-image: url(./img/paper.png); */
     background-size: cover;
     
 }
@@ -104,7 +105,7 @@ main img
 
 .profileCard
 {
-    background-image: url('./img/paper.png');
+    background-image: url('./img/poster1.jpg');
     box-sizing: border-box;
     /* word-wrap: break-word; */
     border: 1px solid rgb(139, 19, 19);
@@ -124,6 +125,7 @@ main img
 }
 .profileCardIndex
 {
+    border: 5px solid rgb(87, 0, 0) !important;
     background-image: url('./img/paper.png');
     background-size: cover;
     box-sizing: border-box;
@@ -143,16 +145,22 @@ main img
 
 .cardName
 {
-    color: black;
+    font-family: 'Bungee', cursive;
+    color: rgb(56, 5, 5);
     position: relative;
     font-weight: bolder;
     margin-top: 3px;
     margin-bottom: 0;
-    background-image: url('./img/paper.png');
-    background-size: 275px 15px;
+    background-image: url('./img/statbg.gif');
+    background-size: 116% 27px;
     background-color: rgb(248, 228, 130);
+    background-position-x: -23px;
 }
+.indexFightname{
+    font-family: 'Bungee', cursive;
+    color: rgb(31, 1, 1);
 
+}
 .cardslogan
 {
 color: #1b1717;
@@ -189,10 +197,12 @@ font-weight: 900;
 }
 
 .grid-container {
+    width: 100%;
+    max-width: 1000px;
     align-items: center;
     justify-items: center; /* adjusted */
     display: grid;
-    grid-template-columns: 25vw 25vw 25vw 25vw;
+    grid-template-columns: auto   auto;
   }
 .grid-item {
 
@@ -201,15 +211,8 @@ text-align: center;
 color: black;
 }
 
-@media only screen and (max-width: 600px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 50vw 50vw;
 
-        grid-template-columns: 50vw 50vw ;
-      }
-  }
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 359px) {
     .grid-container {
         display: grid;
         grid-template-columns: auto ;
@@ -233,8 +236,21 @@ color: black;
 }
 .container p-1{
     width: 100vw;
+    max-width: 1000px;
+}
+
+.container{
+    width: 100%;
+    max-width: 1100px;
 }
 .roster
+{
+    font-weight: bolder;
+}
+.record{
+    color: rgb(77, 3, 3);
+}
+.cash
 {
     font-weight: bolder;
 }
