@@ -4,16 +4,20 @@
 .textmedieval {
     /* font-family: 'MedievalSharp', cursive; */
     color: black;
-    /* background-image: url(./img/paper.png); */
     background-size: cover;
-    
+}
+.textmedievalh1 {
+    font-family: 'Bungee', cursive;
+    color: black;
+    background-size: cover;
 }
 .bold{
     font-weight: bold;
 }
 
 .textmedievalhead {
-    font-family: 'MedievalSharp', cursive;
+    font-family: 'Bungee', cursive;
+
     color: black;
     padding-top: 5px;
     margin-top: 10px;
@@ -163,12 +167,13 @@ main img
 }
 .cardslogan
 {
-color: #1b1717;
-margin: 2px;
+color: #856600;
+/* margin: 2px; */
 padding: 0px 0px 10px 0px;
 padding-top: 0;
-font-family: 'MedievalSharp', cursive;
-font-weight: 900;
+/* font-family: 'Bungee', cursive; */
+
+font-weight: 700;
 
 }
 
