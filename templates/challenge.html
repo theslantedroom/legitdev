@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Challenge
+{% endblock %}
+
+{% block main %}
+<h2>Fight Challenge to {{ challengerName }}</h2>
+    <form action="/challenge" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
+        </div>
+        <div class="form-group">
+            <input min="1" autocomplete="off" autofocus class="form-control" name="amount" placeholder="Amount" type="number">
+        </div>
+        <button id="submit" class="btn btn-primary" type="submit">Buy</button>
+    </form><br><br>
+<h2>MESSAGE</h2>
+<p>{{fightMessage}}</p>
+{% endblock %}

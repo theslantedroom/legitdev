@@ -14,19 +14,15 @@
 
     <div class="profileCardIndex">  
         <h1 class="indexFightname">{{ userdata[0]["username"] }}</h1>
-
         <!-- slogan -->
         <p class="cardslogan">"{{ userdata[0]["slogan"] }}"</p>
         <img id="indexbanner" src="/static/img/box1.gif" alt="img">
-
-
         <div class="">
             <p class=" grid-item">Height: {{ userdata[0]["height"] }}cm / <span id='feet'>{{ ((userdata[0]["height"] / 2.54)/12)|int }}</span>'<span id='inches'>{{ ((userdata[0]["height"] / 2.54)|round|int)%12 }}</span>"</p>
             <p class=" grid-item">Weight: {{ userdata[0]["weight"] }}kg / <span id='lbs'>{{ (userdata[0]["weight"]*2.205)|round|int }}</span>Lbs.</p>
-            <p class=" grid-item ">Style: {{ userdata[0]["fightstyle"] }}</p>
+            <!-- <p class=" grid-item ">Style: {{ userdata[0]["fightstyle"] }}</p> -->
             <p class=" grid-item">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ userdata[0]["totalcharge"] }}</span></p>
         </div>
-
         <h4 class="textmedievalhead bold">Punch Skill</h4>
         <div class="grid-container">
             <p class="statistic grid-item">Jab: {{ userdata[0]["jab"] }}%</p>
@@ -38,8 +34,6 @@
             <p class="statistic grid-item">Left Uppercut: {{ userdata[0]["lupper"] }}%</p>
             <p class="statistic grid-item">Right Uppercut: {{ userdata[0]["rupper"] }}%</p>
         </div>
-
-
         <h4 class="textmedievalhead bold">Conditioning</h4>
         <div class="grid-container">
             <p class="statistic grid-item">Speed: {{ userdata[0]["speed"] }}%</p>
@@ -47,9 +41,6 @@
             <p class="statistic grid-item">Chin: {{ userdata[0]["chin"] }}%</p>
             <p class="statistic grid-item">Stamina: {{ userdata[0]["stamina"] }}%</p>
         </div>
-
-
-
     </div>   
 
 

@@ -103,9 +103,9 @@ def pocketCash():
 def index():
     if request.method == "GET":
         
-        userId = session["user_id"]
-        userdata = db.execute("SELECT * FROM users WHERE id = :user", user=userId)
-        inventory = db.execute("SELECT * FROM inventory WHERE id = :id", id=userId)
+        userID = session["user_id"]
+        userdata = db.execute("SELECT * FROM users WHERE id = :user", user=userID)
+        inventory = db.execute("SELECT * FROM inventory WHERE id = :id", id=userID)
         # make list of inventory
         listInv = []
         for i, row in enumerate(inventory):
@@ -117,23 +117,48 @@ def index():
     return render_template("index.html", userdata=userdata, listInv=listInv)
 
 
-@app.route("/buy", methods=["GET", "POST"])
+@app.route("/challenge", methods=["GET", "POST"])
 @login_required
-def buy():
-    return redirect("/")
+def challenge():
+    print('challenge')
+    return redirect("/challenge.html")
 
 @app.route("/fight", methods=["GET", "POST"])
 @login_required
 def fight():
-    userid = session["user_id"]
-    users = db.execute("SELECT * FROM users")
-    # print('listusers ',users)
-    listUsers = []
-    for user in users:
-        userdata = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'], user['power'], user['wins'], user['loses'], user['draws'], user['kos']))
-        listUsers.append(userdata)
+    # DISPLAY LIST of all challengers
+    if request.method == "GET":
+        userID = session["user_id"]
+        users = db.execute("SELECT * FROM users")
+        userdata = db.execute("SELECT * FROM users WHERE id = :user", user=userID)
+        print('redCorner ',redCorner)
+        listUsers = []
+        for user in users:
+            challengerData = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'], user['power'], user['wins'], user['loses'], user['draws'], user['kos']))
+            listUsers.append(challengerData)
+        
 
-    return render_template("fight.html", listUsers=listUsers)
+        return render_template("fight.html", listUsers=listUsers, userdata=userdata)
+
+    if request.method == "POST":
+        userid = session["user_id"]
+
+
+        # get challenger stats
+
+        
+        challengerName = request.form.get('challengerName')
+        fightMessage = request.form.get('fightMessage')
+        print(challengerName, fightMessage)
+        print(type(challengerName))
+        print(request.form)
+
+        # users = db.execute("SELECT * FROM users WHERE ")
+
+
+        # pass the challenger statss to challenge.html
+        print('sell')
+        return render_template("challenge.html", challengerName=challengerName, fightMessage=fightMessage )
 
 
 
@@ -142,11 +167,6 @@ def login():
     """Log user in"""
     # Forget any user_id
     session.clear()
-
-    # registerpassword1 = request.args['registerpassword1'] 
-
-
-    # userID = request.args['userID'] 
 
     # User reached route via POST (as by submitting a form via POST)
 
@@ -260,8 +280,8 @@ def register():
         db.execute("INSERT INTO users (username, hash, slogan, fightstyle, height, weight, jab, straightcross, lhook, rhook, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", username, PWhash, slogan, fightstyle, height, weight, jab, lhook, rhook, straightcross, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power)
 
         userID = int(db.execute("SELECT id FROM users WHERE username = :userName", userName=username)[0]['id'])
-    
-        # db.execute("INSERT INTO inventory (id, username, fightstyle, quantity) VALUES(?, ?, ?, ?)", userID, username, fightstyle, 1)
+        # insert into users inventory
+        db.execute("INSERT INTO inventory (id, username, fightstyle, quantity) VALUES(?, ?, ?, ?)", userID, username, fightstyle, 1)
 
         # return redirect("/login", userID=userID, username=username, registerpassword1=registerpassword1 )
         return redirect(url_for('.login', pw=registerpassword1, un=username))

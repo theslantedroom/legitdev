@@ -1,33 +1,155 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Sell
+    Fight
 {% endblock %}
 
 {% block main %}
-    <form action="/sell" method="post">
+    <form action="/fight" method="post">
         <div class="form-group">
             <h3>Pick a Challenger</h3>
             <p>todo - fights not yet implemented</p>
-            <select id="stock" name="symbol">
+            <select id="challengerName" name="challengerName" type="">
+                <option value='' selected disabled> Pick a challenger </option>
+
             {% for user in listUsers %}
-                <option value={{ key }}> {{ user[1] }}</option>
+                <option value={{ user[1] }}> {{ user[1] }}</option>
             {% endfor %}
             </select>
         </div>
         <div class="form-group">
-            <input min="1" autocomplete="off" autofocus class="form-control" name="sellCount" placeholder="Fight Challenge Message" type="number">
+            Contract Offer
+            <input id="message" min="1" autocomplete="off" autofocus class="form-control" name="fightMessage" value="Hey Bud Wanna Fight?" type="text">
         </div>
-        <button id="submit" class="btn btn-primary" type="submit">Send Challenge</button>
-    </form>
 
+
+        <div id="">
+            <div class='vsboxitem' id="redCorner">
+                <div class="profileCard">  
+                    <!-- name -->
+                    <h4 class="cardName textmedieval">{{ userdata[1] }}</h4>
+                    <!-- slogan -->        
+                    <p class="cardslogan textmedieval">"{{ userdata[2] }}"</p>
+                    <p class="statistic textmedieval"><span >{{ ((userdata[5] / 2.54)/12)|int }}</span>'<span >{{ ((userdata[5] / 2.54)|round|int)%12 }}</span>" - </p>
+                    <p class="statistic textmedieval"><span >{{ (userdata[6]*2.205)|round|int }}</span>lbs.</p>
+                    <p class="statistic textmedieval">{{ userdata[4] }}</p><br>
+                    <h5 class="textmedievalh1 bold">Accuracy</h5>
+                    <p class="statistic textmedieval">Jab: {{ userdata[7] }}%</p>
+                    <p class="statistic textmedieval">Cross: {{ userdata[8] }}%</p><br>
+                    <p class="statistic textmedieval">Left Hook: {{ userdata[9] }}%</p>
+                    <p class="statistic textmedieval">Right Hook: {{ userdata[10] }}%</p><br>
+                    <p class="statistic textmedieval">Left Body: {{ userdata[11] }}%</p>
+                    <p class="statistic textmedieval">Right Body: {{ userdata[12] }}%</p><br>
+                    <p class="statistic textmedieval">L Uppercut: {{ userdata[13] }}%</p>
+                    <p class="statistic textmedieval">R Uppercut: {{ userdata[14] }}%</p>
+                    <h5 class="textmedievalh1 bold">Conditioning</h5>
+                    <p class="statistic textmedieval">Power: {{ userdata[19] }}%</p>
+                    <p class="statistic textmedieval">Speed: {{ userdata[15] }}%</p>
+                    <p class="statistic textmedieval">Dodge: {{ userdata[16] }}%</p><br>
+                    <p class="statistic textmedieval">Chin: {{ userdata[17] }}%</p>
+                    <p class="statistic textmedieval">Stamina: {{ userdata[18] }}%</p>
+                    <h6 class="record">win-loss-draw-ko</h6>
+                    <p class="statistic record">{{ userdata[20] }}-</p>
+                    <p class="statistic record">{{ userdata[21] }}-</p>
+                    <p class="statistic record">{{ userdata[22] }}-</p>
+                    <p class="statistic record">{{ userdata[23] }}</p><br>
+                    <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ userdata[3] }}</span></p>     
+                </div>  
+            </div>
+            <div id="vsbig" class='vsboxitem'>VS</div>
+    
+            <div class='vsboxitem' >
+                <div class="profileCard">  
+                    <!-- name -->
+                    <h4 class="cardName textmedieval"><span id="oppname">???</span></h4>
+                    <!-- slogan -->        
+                    <p class="cardslogan textmedieval">"<span id="oppslogan">???</span>"</p>
+                    <p class="statistic textmedieval"><span id='feet'>?</span>'<span id='inches'>?</span>" - </p>
+                    <p class="statistic textmedieval"><span id='lbs'>?</span>lbs.</p>
+                    <p class="statistic textmedieval"> <span id='style'>?</span></p><br>
+                    <h5 class="textmedievalh1 bold">Accuracy</h5>
+                    <p class="statistic textmedieval">Jab: <span id="Jab">???</span>%</p>
+                    <p class="statistic textmedieval">Cross: <span id="Cross">???</span>%</p><br>
+                    <p class="statistic textmedieval">Left Hook: <span id="Lefthook">???</span>%</p>
+                    <p class="statistic textmedieval">Right Hook: <span id="Righthook">???</span>%</p><br>
+                    <p class="statistic textmedieval">Left Body: <span id="Leftbody">???</span>%</p>
+                    <p class="statistic textmedieval">Right Body: <span id="Rightbody">???</span>%</p><br>
+                    <p class="statistic textmedieval">L Uppercut: <span id="UppercutL">???</span>%</p>
+                    <p class="statistic textmedieval">R Uppercut: <span id="UppercutR">???</span>%</p>
+                    <h5 class="textmedievalh1 bold">Conditioning</h5>
+                    <p class="statistic textmedieval">Power: <span id="Power">???</span>%</p>
+                    <p class="statistic textmedieval">Speed: <span id="Speed">???</span>%</p>
+                    <p class="statistic textmedieval">Dodge: <span id="Dodge">???</span>%</p><br>
+                    <p class="statistic textmedieval">Chin: <span id="Chin">???</span>%</p>
+                    <p class="statistic textmedieval">Stamina: <span id="Stamina">???</span>%</p>
+                    <h6 class="record">win-loss-draw-ko</h6>
+                    <p class="statistic record"><span id="win">???</span>-</p>
+                    <p class="statistic record"><span id="loss">???</span>-</p>
+                    <p class="statistic record"><span id="draw">???</span>-</p>
+                    <p class="statistic record"><span id="ko">???</span></p><br>
+                    <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge"><span id="Earnings">???</span></span></p>     
+                </div> 
+            </div>
+        </div>  
+        <br>
+        <button id="submitoffer" class="btn btn-primary" type="submit" name="sendbtn">Send Challenge</button>
+    </form>
+    <br>
 
 
 
     <br><br>
-    <h3>Accept Challenge</h3>
     <h6>Fight offers:</h6>
-    <button id="submit" class="btn btn-primary" type="submit">Accept Fight</button>
+    <button id="submit" class="btn btn-primary" onClick="grabChallengerName()" type="submit">Accept Fight</button>
 
 
+
+
+
+
+    <script type="text/javascript">
+        const pickChallenger = document.querySelector('#challengerName');
+        const grabChallengerName = () => {
+            let x = pickChallenger.selectedIndex-1;
+
+            // gets the data passed from fight route in flask
+            let challengerData = {{ listUsers|safe }}
+            let message = document.querySelector('#message').value;
+            
+            let style = challengerData[x][4]
+            document.querySelector('#oppname').innerText = challengerData[x][1];
+            document.querySelector('#oppslogan').innerText = challengerData[x][2];
+            document.querySelector('#feet').innerText = Math.floor(((challengerData[x][5] / 2.54)/12));
+            document.querySelector('#inches').innerText = Math.round(((challengerData[x][5] / 2.54))%12);
+            document.querySelector('#lbs').innerText = Math.round(challengerData[x][6]*2.205);
+            document.querySelector('#style').innerText = style;
+            document.querySelector('#Jab').innerText = challengerData[x][7];
+            document.querySelector('#Cross').innerText = challengerData[x][8];
+            document.querySelector('#Lefthook').innerText = challengerData[x][9];
+            document.querySelector('#Righthook').innerText = challengerData[x][10];
+            document.querySelector('#Leftbody').innerText = challengerData[x][11];
+            document.querySelector('#Rightbody').innerText = challengerData[x][12];
+            document.querySelector('#UppercutL').innerText = challengerData[x][13];
+            document.querySelector('#UppercutR').innerText = challengerData[x][14];
+            document.querySelector('#Power').innerText = challengerData[x][19];
+            document.querySelector('#Speed').innerText = challengerData[x][15];
+            document.querySelector('#Dodge').innerText = challengerData[x][16];
+            document.querySelector('#Chin').innerText = challengerData[x][17];
+            document.querySelector('#Stamina').innerText = challengerData[x][18];
+            document.querySelector('#win').innerText = challengerData[x][20];
+            document.querySelector('#loss').innerText = challengerData[x][21];
+            document.querySelector('#draw').innerText = challengerData[x][22];
+            document.querySelector('#ko').innerText = challengerData[x][23];
+            document.querySelector('#Earnings').innerText = challengerData[x][3];
+
+            let weight = challengerData[x][6]
+            document.querySelector('#submitoffer').style.display ='block';
+            console.log('cd', challengerData[x]);
+
+        
+
+        }
+        pickChallenger.addEventListener('change', grabChallengerName);
+
+    </script>
 {% endblock %}

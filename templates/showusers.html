@@ -23,11 +23,6 @@ leaderboard
 
         <p class="statistic textmedieval">{{ user[4] }}</p><br>
 
-
-        <h4></h4>
-        <!-- (newFighter.weight*2.205).toFixed(0) -->
-        <!-- ((n*0.393700) / 12) -->
-
         <h5 class="textmedievalh1 bold">Accuracy</h5>
         <p class="statistic textmedieval">Jab: {{ user[7] }}%</p>
         <p class="statistic textmedieval">Cross: {{ user[8] }}%</p><br>
@@ -51,22 +46,8 @@ leaderboard
         <p class="statistic record">{{ user[21] }}-</p>
         <p class="statistic record">{{ user[22] }}-</p>
         <p class="statistic record">{{ user[23] }}</p><br>
-        <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ user[3] }}</span></p>
-
-
-
-
-
-
-        
-        
-        
+        <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ user[3] }}</span></p>     
     </div>         
-
-    <script>
-
-    </script>
-
     {% endfor %}
 </div> 
 
