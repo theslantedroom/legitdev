@@ -295,6 +295,10 @@ color: black;
     margin: auto;
 }
 #oppid{
-    /* display: none; */
+    display: none;
     color: antiquewhite;
+}
+#wagerHide{
+    display: none;
+
 }

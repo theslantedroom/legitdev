@@ -148,7 +148,7 @@ def fight():
         # get challenger stats
 
         challengedId = request.form.get('oppID')
-        challengedName = request.form.get('challengerName')
+        challengedName = request.form.get('challengedName')
         fightMessage = request.form.get('fightMessage')
         wager = request.form.get('wager')
         print(request.form)
@@ -157,7 +157,7 @@ def fight():
         db.execute("INSERT INTO inventory (id, username, wager, challenger, message) VALUES(?, ?, ?, ?, ?)", challengedId, challengedName, wager, challengerName, fightMessage)
 
         # pass the challenger statss to challenge.html
-        return render_template("challenge.html", challengedName=challengedName, fightMessage=fightMessage )
+        return render_template("challenge.html", challengerName=challengerName, challengedName=challengedName, fightMessage=fightMessage, wager=wager)
 
 
 
