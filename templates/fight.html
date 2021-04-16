@@ -26,34 +26,35 @@
         <div id="">
             <div class='vsboxitem' id="redCorner">
                 <div class="profileCard">  
-                    <!-- name -->
-                    <h4 class="cardName textmedieval">{{ userdata[1] }}</h4>
-                    <!-- slogan -->        
-                    <p class="cardslogan textmedieval">"{{ userdata[2] }}"</p>
-                    <p class="statistic textmedieval"><span >{{ ((userdata[5] / 2.54)/12)|int }}</span>'<span >{{ ((userdata[5] / 2.54)|round|int)%12 }}</span>" - </p>
-                    <p class="statistic textmedieval"><span >{{ (userdata[6]*2.205)|round|int }}</span>lbs.</p>
-                    <p class="statistic textmedieval">{{ userdata[4] }}</p><br>
+                    <h4 class="cardName textmedieval">{{ userdata[0]["username"] }}</h4>
+                    
+                    <p class="statistic textmedieval"><span >{{ ((userdata[0]["height"] / 2.54)/12)|int }}</span>'<span >{{ ((userdata[0]["height"] / 2.54)|round|int)%12 }}</span>" - </p>
+                    <p class="statistic textmedieval"><span >{{ (userdata[0]["weight"]*2.205)|round|int }}</span>lbs.</p>
+
+                    <p class="cardslogan textmedieval">"{{ userdata[0]["slogan"] }}"</p>
+                    <p class="statistic textmedieval">{{ userdata[0]["fightstyle"] }}</p><br>
                     <h5 class="textmedievalh1 bold">Accuracy</h5>
-                    <p class="statistic textmedieval">Jab: {{ userdata[7] }}%</p>
-                    <p class="statistic textmedieval">Cross: {{ userdata[8] }}%</p><br>
-                    <p class="statistic textmedieval">Left Hook: {{ userdata[9] }}%</p>
-                    <p class="statistic textmedieval">Right Hook: {{ userdata[10] }}%</p><br>
-                    <p class="statistic textmedieval">Left Body: {{ userdata[11] }}%</p>
-                    <p class="statistic textmedieval">Right Body: {{ userdata[12] }}%</p><br>
-                    <p class="statistic textmedieval">L Uppercut: {{ userdata[13] }}%</p>
-                    <p class="statistic textmedieval">R Uppercut: {{ userdata[14] }}%</p>
+                    <p class="statistic textmedieval">Jab: {{ userdata[0]["jab"] }}%</p>
+                    <p class="statistic textmedieval">Cross: {{ userdata[0]["straightcross"] }}%</p><br>
+                    <p class="statistic textmedieval">Left Hook: {{ userdata[0]["lhook"] }}%</p>
+                    <p class="statistic textmedieval">Right Hook: {{ userdata[0]["rhook"] }}%</p><br>
+                    <p class="statistic textmedieval">Left Body: {{ userdata[0]["lbody"] }}%</p>
+                    <p class="statistic textmedieval">Right Body: {{ userdata[0]["rbody"] }}%</p><br>
+                    <p class="statistic textmedieval">L Uppercut: {{ userdata[0]["lupper"] }}%</p>
+                    <p class="statistic textmedieval">R Uppercut: {{ userdata[0]["rupper"] }}%</p>
                     <h5 class="textmedievalh1 bold">Conditioning</h5>
-                    <p class="statistic textmedieval">Power: {{ userdata[19] }}%</p>
-                    <p class="statistic textmedieval">Speed: {{ userdata[15] }}%</p>
-                    <p class="statistic textmedieval">Dodge: {{ userdata[16] }}%</p><br>
-                    <p class="statistic textmedieval">Chin: {{ userdata[17] }}%</p>
-                    <p class="statistic textmedieval">Stamina: {{ userdata[18] }}%</p>
+                    <p class="statistic textmedieval">Power: {{ userdata[0]["power"] }}%</p>
+                    <p class="statistic textmedieval">Speed: {{ userdata[0]["speed"] }}%</p>
+                    <p class="statistic textmedieval">Dodge: {{ userdata[0]["dodge"] }}%</p><br>
+                    <p class="statistic textmedieval">Chin: {{ userdata[0]["chin"] }}%</p>
+                    <p class="statistic textmedieval">Stamina: {{ userdata[0]["stamina"] }}%</p>
                     <h6 class="record">win-loss-draw-ko</h6>
-                    <p class="statistic record">{{ userdata[20] }}-</p>
-                    <p class="statistic record">{{ userdata[21] }}-</p>
-                    <p class="statistic record">{{ userdata[22] }}-</p>
-                    <p class="statistic record">{{ userdata[23] }}</p><br>
-                    <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ userdata[3] }}</span></p>     
+                    <p class="statistic record">{{ userdata[0]["wins"] }}-</p>
+                    <p class="statistic record">{{ userdata[0]["loses"] }}-</p>
+                    <p class="statistic record">{{ userdata[0]["draws"] }}-</p>
+                    <p class="statistic record">{{ userdata[0]["kos"] }}</p><br>
+                    <p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ userdata[0]["totalcharge"]}}</span></p>     
+
                 </div>  
             </div>
             <div id="vsbig" class='vsboxitem'>VS</div>

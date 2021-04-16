@@ -131,7 +131,7 @@ def fight():
         userID = session["user_id"]
         users = db.execute("SELECT * FROM users")
         userdata = db.execute("SELECT * FROM users WHERE id = :user", user=userID)
-        print('redCorner ',redCorner)
+        print('userdata',userdata)
         listUsers = []
         for user in users:
             challengerData = list((user['id'] ,user['username'], user['slogan'], user['totalcharge'], user['fightstyle'], user['height'] , user['weight'], user['jab'], user['straightcross'], user['lhook'], user['rhook'], user['lbody'], user['rbody'], user['lupper'], user['rupper'], user['speed'], user['dodge'], user['chin'], user['stamina'], user['power'], user['wins'], user['loses'], user['draws'], user['kos']))

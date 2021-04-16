@@ -16,3 +16,31 @@
         <button id="submit" class="btn btn-primary" type="submit">Buy</button>
     </form><br><br>
 {% endblock %}
+
+
+<h4 class="cardName textmedieval">{{ userdata[1] }}</h4>
+<p class="cardslogan textmedieval">"{{ userdata[2] }}"</p>
+<p class="statistic textmedieval"><span >{{ ((userdata[5] / 2.54)/12)|int }}</span>'<span >{{ ((userdata[5] / 2.54)|round|int)%12 }}</span>" - </p>
+<p class="statistic textmedieval"><span >{{ (userdata[6]*2.205)|round|int }}</span>lbs.</p>
+<p class="statistic textmedieval">{{ userdata[4] }}</p><br>
+<h5 class="textmedievalh1 bold">Accuracy</h5>
+<p class="statistic textmedieval">Jab: {{ userdata[7] }}%</p>
+<p class="statistic textmedieval">Cross: {{ userdata[8] }}%</p><br>
+<p class="statistic textmedieval">Left Hook: {{ userdata[9] }}%</p>
+<p class="statistic textmedieval">Right Hook: {{ userdata[10] }}%</p><br>
+<p class="statistic textmedieval">Left Body: {{ userdata[11] }}%</p>
+<p class="statistic textmedieval">Right Body: {{ userdata[12] }}%</p><br>
+<p class="statistic textmedieval">L Uppercut: {{ userdata[13] }}%</p>
+<p class="statistic textmedieval">R Uppercut: {{ userdata[14] }}%</p>
+<h5 class="textmedievalh1 bold">Conditioning</h5>
+<p class="statistic textmedieval">Power: {{ userdata[19] }}%</p>
+<p class="statistic textmedieval">Speed: {{ userdata[15] }}%</p>
+<p class="statistic textmedieval">Dodge: {{ userdata[16] }}%</p><br>
+<p class="statistic textmedieval">Chin: {{ userdata[17] }}%</p>
+<p class="statistic textmedieval">Stamina: {{ userdata[18] }}%</p>
+<h6 class="record">win-loss-draw-ko</h6>
+<p class="statistic record">{{ userdata[20] }}-</p>
+<p class="statistic record">{{ userdata[21] }}-</p>
+<p class="statistic record">{{ userdata[22] }}-</p>
+<p class="statistic record">{{ userdata[23] }}</p><br>
+<p class="statistic textmedieval cash">Earnings: $<span id="cardChargeTotal" class="totalCharge">{{ userdata[3] }}</span></p>   
