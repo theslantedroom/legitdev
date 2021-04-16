@@ -7,10 +7,10 @@
 {% block main %}
     <form action="/fight" method="post">
         <div class="form-group">
-            <h3>Pick a Challenger</h3>
+            <h3>Challenge an Opponent</h3>
             <p>todo - fights not yet implemented</p>
             <select id="challengerName" name="challengerName" type="">
-                <option value='' selected disabled> Pick a challenger </option>
+                <option value='' selected disabled> Pick a Fight</option>
 
             {% for user in listUsers %}
                 <option value={{ user[1] }}> {{ user[1] }}</option>
@@ -18,15 +18,24 @@
             </select>
         </div>
         <div class="form-group">
-            Contract Offer
+            Contract Message
             <input id="message" min="1" autocomplete="off" autofocus class="form-control" name="fightMessage" value="Hey Bud Wanna Fight?" type="text">
         </div>
 
+        <div class="form-group">
+           The Wager $ <input id="wager" min="1" max={{ userdata[0]["totalcharge"] }} autocomplete="off" autofocus class="form-control" name="wager"  value="0" type="number">
+        </div>
+
+
+        <div class="form-group">
+            <input id="oppid" name="oppID" type="number">
+         </div>
 
         <div id="">
             <div class='vsboxitem' >
                 <div class="profileCard">  
                     <!-- name -->
+
                     <h4 class="cardName textmedieval"><span id="oppname">???</span></h4>
                     <!-- slogan -->        
                     <p class="cardslogan textmedieval">"<span id="oppslogan">???</span>"</p>
@@ -117,6 +126,7 @@
             let message = document.querySelector('#message').value;
             
             let style = challengerData[x][4]
+            document.querySelector('#oppid').value = challengerData[x][0];
             document.querySelector('#oppname').innerText = challengerData[x][1];
             document.querySelector('#oppslogan').innerText = challengerData[x][2];
             document.querySelector('#feet').innerText = Math.floor(((challengerData[x][5] / 2.54)/12));

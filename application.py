@@ -109,7 +109,8 @@ def index():
         # make list of inventory
         listInv = []
         for i, row in enumerate(inventory):
-            invdata = inventory[i]['fightstyle']
+            invdata = list((inventory[i]['message'],inventory[i]['challenger'],inventory[i]['wager']))
+
             listInv.append(invdata)
 
         # print(listInv, "listInv")
@@ -141,24 +142,22 @@ def fight():
         return render_template("fight.html", listUsers=listUsers, userdata=userdata)
 
     if request.method == "POST":
-        userid = session["user_id"]
-
-
+        userID = session["user_id"]
+        challenger = userdata = db.execute("SELECT username FROM users WHERE id = :user", user=userID)
+        challengerName = challenger[0]['username']
         # get challenger stats
 
-        
-        challengerName = request.form.get('challengerName')
+        challengedId = request.form.get('oppID')
+        challengedName = request.form.get('challengerName')
         fightMessage = request.form.get('fightMessage')
-        print(challengerName, fightMessage)
-        print(type(challengerName))
+        wager = request.form.get('wager')
         print(request.form)
 
-        # users = db.execute("SELECT * FROM users WHERE ")
-
+        # insert into users inventory
+        db.execute("INSERT INTO inventory (id, username, wager, challenger, message) VALUES(?, ?, ?, ?, ?)", challengedId, challengedName, wager, challengerName, fightMessage)
 
         # pass the challenger statss to challenge.html
-        print('sell')
-        return render_template("challenge.html", challengerName=challengerName, fightMessage=fightMessage )
+        return render_template("challenge.html", challengedName=challengedName, fightMessage=fightMessage )
 
 
 
@@ -279,9 +278,9 @@ def register():
             return apology("that username is taken")
         db.execute("INSERT INTO users (username, hash, slogan, fightstyle, height, weight, jab, straightcross, lhook, rhook, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", username, PWhash, slogan, fightstyle, height, weight, jab, lhook, rhook, straightcross, lbody, rbody, lupper, rupper, speed, dodge, chin, stamina, power)
 
-        userID = int(db.execute("SELECT id FROM users WHERE username = :userName", userName=username)[0]['id'])
+        # userID = int(db.execute("SELECT id FROM users WHERE username = :userName", userName=username)[0]['id'])
         # insert into users inventory
-        db.execute("INSERT INTO inventory (id, username, fightstyle, quantity) VALUES(?, ?, ?, ?)", userID, username, fightstyle, 1)
+        # db.execute("INSERT INTO inventory (id, username, fightstyle, quantity) VALUES(?, ?, ?, ?)", userID, username, fightstyle, 1)
 
         # return redirect("/login", userID=userID, username=username, registerpassword1=registerpassword1 )
         return redirect(url_for('.login', pw=registerpassword1, un=username))

@@ -288,3 +288,13 @@ color: black;
     display: none;
     margin: auto;
 }
+#wager
+{
+    display: inline-block;
+    width: auto;
+    margin: auto;
+}
+#oppid{
+    /* display: none; */
+    color: antiquewhite;
+}

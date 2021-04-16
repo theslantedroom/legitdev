@@ -65,7 +65,11 @@
         <!-- <h1>Inventory:</h1> -->
         <div id="inventoryCard">
         {% for item in listInv %}
-            <p class="cardName grid-item">{{ item }}</p>
+            <span>Challenge from - {{ item[1] }}</span>
+            <span>-  "{{ item[0] }}"</span>
+
+            <span>- Wager ${{ item[2] }}</span>
+
         {% endfor %}
         </div>
 
